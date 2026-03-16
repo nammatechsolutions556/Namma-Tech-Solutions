@@ -18,7 +18,7 @@ const adminLogin = async (req, res) => {
 
         // If no admin is found, we can optionally hardcode checking "admin@namma.com" and "admin123" to seed it
         if (result.rows.length === 0) {
-            if (email === "admin@namma.com" && password === "admin123") {
+            if (email === "Afsheen@namma.com" && password === "Afsheen@Ashok556") {
                 // Seed the default admin
                 const hashedPassword = await bcrypt.hash(password, 10);
                 const newAdmin = await pool.query(
