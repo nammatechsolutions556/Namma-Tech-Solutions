@@ -1,0 +1,145 @@
+.manage-projects-container {
+    padding: 1rem 0;
+    color: #f9fafb;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.manage-projects-container h2 {
+    margin-bottom: 2rem;
+    color: #f9fafb;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #3b82f6;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.manage-projects-container form {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+}
+
+.manage-projects-container input,
+.manage-projects-container textarea {
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.2);
+    color: #f9fafb;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.manage-projects-container textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.manage-projects-container input:focus,
+.manage-projects-container textarea:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.manage-projects-container button[type="submit"] {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.manage-projects-container button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.manage-projects-container table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.manage-projects-container th,
+.manage-projects-container td {
+    padding: 1.2rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.manage-projects-container td:last-child {
+    border-bottom: none;
+}
+
+.manage-projects-container th {
+    background: rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.manage-projects-container td {
+    color: #d1d5db;
+    vertical-align: middle;
+}
+
+.manage-projects-container td button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.manage-projects-container td button:first-child {
+    background: rgba(59, 130, 246, 0.15);
+    /* Blue */
+    color: #3b82f6;
+}
+
+.manage-projects-container td button:first-child:hover {
+    background: rgba(59, 130, 246, 0.3);
+}
+
+.manage-projects-container td button:last-child {
+    background: rgba(239, 68, 68, 0.15);
+    /* Red */
+    color: #ef4444;
+}
+
+.manage-projects-container td button:last-child:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
