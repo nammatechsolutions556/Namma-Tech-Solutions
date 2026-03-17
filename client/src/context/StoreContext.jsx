@@ -3,7 +3,7 @@ import { createContext } from "react";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-    const url = "http://localhost:5000" || "https://namma-tech-solutions.onrender.com";
+    const url = "https://namma-tech-solutions.onrender.com";
 
     const contextValue = {
         url
