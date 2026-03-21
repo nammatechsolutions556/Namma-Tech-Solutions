@@ -233,7 +233,7 @@ const Internships = () => {
                         />
                     ))
                 ) : (
-                    <div className="no-results">No internships found matching "{searchTerm}"</div>
+                    //<div className="no-results">No internships found matching "{searchTerm}"</div>
                 )}
             </div>
 
