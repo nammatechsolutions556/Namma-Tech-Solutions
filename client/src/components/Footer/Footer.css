@@ -1,0 +1,146 @@
+ .footer {
+
+   background: #0f172a;
+   /* dark navy */
+   color: #e5e7eb;
+   position: relative;
+   bottom: 0;
+   left: 0;
+   right: 0;
+
+ }
+
+ .footer-container {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 0 1.5rem 2.5rem;
+   display: grid;
+   grid-template-columns: 2fr 1fr 1fr 1.2fr;
+   gap: 2rem;
+ }
+
+ .footer-section h2.footer-logo {
+   font-size: 1.25rem;
+   font-weight: 700;
+   margin-bottom: 0.75rem;
+   color: #f9fafb;
+ }
+
+ .footer-description {
+   font-size: 0.9375rem;
+   line-height: 1.6;
+   color: #cbd5f5;
+ }
+
+ .footer-section h3 {
+   font-size: 1rem;
+   font-weight: 600;
+   margin-bottom: 0.75rem;
+   color: #e5e7eb;
+ }
+
+ .footer-section ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+ }
+
+ .footer-section li {
+   margin-bottom: 0.5rem;
+   font-size: 0.9375rem;
+ }
+
+ .footer-section li a {
+   color: #cbd5f5;
+   text-decoration: none;
+   transition: color 0.2s ease, padding-left 0.2s ease;
+ }
+
+ .footer-section li a:hover {
+   color: #60a5fa;
+   padding-left: 0.25rem;
+ }
+
+ .footer-section p {
+   font-size: 0.9375rem;
+   margin-bottom: 0.35rem;
+   color: #cbd5f5;
+ }
+
+ .footer-bottom {
+   border-top: 1px solid rgba(148, 163, 184, 0.4);
+   padding: 1rem 1.5rem 1.25rem;
+   text-align: center;
+   font-size: 0.875rem;
+   color: #9ca3af;
+   background: #020617;
+   /* slightly darker strip */
+ }
+
+ .footer-bottom p {
+   margin: 0;
+ }
+
+ /* Responsive layout */
+ @media (max-width: 1024px) {
+   .footer-container {
+     grid-template-columns: 1.5fr 1fr 1fr;
+   }
+ }
+
+ @media (max-width: 768px) {
+   .footer-container {
+     grid-template-columns: 1fr 1fr;
+   }
+ }
+
+ @media (max-width: 640px) {
+   .footer-container {
+     grid-template-columns: 1fr;
+   }
+
+   .footer {
+     padding-top: 2rem;
+   }
+
+   .footer-bottom {
+     padding-inline: 1rem;
+   }
+ }
+
+ /* --- Light Mode Overrides --- */
+ body.light-mode .footer {
+   background: #f8fafc;
+   color: #1f2937;
+   border-top: 1px solid #e2e8f0;
+ }
+
+ body.light-mode .footer-section h2.footer-logo {
+   color: #111827;
+ }
+
+ body.light-mode .footer-description {
+   color: #4b5563;
+ }
+
+ body.light-mode .footer-section h3 {
+   color: #1f2937;
+ }
+
+ body.light-mode .footer-section li a {
+   color: #4b5563;
+ }
+
+ body.light-mode .footer-section li a:hover {
+   color: #2563eb;
+ }
+
+ body.light-mode .footer-section p {
+   color: #4b5563;
+ }
+
+ body.light-mode .footer-bottom {
+   background: #f1f5f9;
+   color: #64748b;
+   border-top-color: #cbd5e1;
+ }
