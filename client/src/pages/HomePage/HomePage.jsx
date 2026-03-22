@@ -267,7 +267,7 @@ const HomePage = () => {
           <div className="contact-item">
             <div className="contact-icon">📞</div>
             <h4>Phone</h4>
-            <p>+91 98765 43210</p>
+            <p>+91 87920 44661</p>
           </div>
           <div className="contact-item">
             <div className="contact-icon">📍</div>
