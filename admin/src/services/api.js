@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // Determine the base URL depending on the environment
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+//const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_URL = import.meta.env.VITE_API_URL || "https://namma-tech-solutions.onrender.com";
 
 // Create an Axios instance
 const api = axios.create({
