@@ -50,7 +50,7 @@ const Contact = () => {
             <h2>Get in Touch</h2>
 
             <p><strong>Email:</strong> support@nammatechsolutions.com</p>
-            <p><strong>Phone:</strong> +91 8792044661</p>
+            <p><strong>Phone:</strong> +91 87920 44661</p>
             <p><strong>Location:</strong> Karnataka, India</p>
 
             <div className="business-hours">
