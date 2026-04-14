@@ -52,7 +52,7 @@ api.interceptors.response.use(
             localStorage.removeItem("adminToken");
             localStorage.removeItem("adminAuth");
             localStorage.removeItem("adminProfile");
-            window.location.href = "/login";
+            window.location.href = "/#/login";
         }
         return Promise.reject(error);
     }
