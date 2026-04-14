@@ -1,0 +1,216 @@
+.client-enquiries-container {
+    padding: 1rem 0;
+    color: #f9fafb;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.client-enquiries-container h2 {
+    margin-bottom: 2rem;
+    color: #f9fafb;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #ec4899;
+    /* using pink color for contact */
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.client-enquiries-container table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.client-enquiries-container th,
+.client-enquiries-container td {
+    padding: 1.2rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.client-enquiries-container th {
+    background: rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.client-enquiries-container td {
+    color: #d1d5db;
+    vertical-align: middle;
+}
+
+/* The Status Badge Styling */
+.client-enquiries-container td:nth-child(5) {
+    font-weight: 600;
+}
+
+.client-enquiries-container td button {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    margin-bottom: 0.25rem;
+}
+
+/* Mark Read */
+.client-enquiries-container td button:nth-child(1) {
+    background: rgba(59, 130, 246, 0.15);
+    /* blue */
+    color: #3b82f6;
+}
+
+.client-enquiries-container td button:nth-child(1):hover {
+    background: rgba(59, 130, 246, 0.3);
+}
+
+/* Resolved */
+.client-enquiries-container td button:nth-child(2) {
+    background: rgba(16, 185, 129, 0.15);
+    /* green */
+    color: #10b981;
+}
+
+.client-enquiries-container td button:nth-child(2):hover {
+    background: rgba(16, 185, 129, 0.3);
+}
+
+/* Delete */
+.client-enquiries-container td button:last-child {
+    background: rgba(239, 68, 68, 0.15);
+    /* red */
+    color: #ef4444;
+}
+
+.client-enquiries-container td button:last-child:hover {
+    background: rgba(239, 68, 68, 0.3);
+}
+
+.table-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #1e293b;
+    color: #f8fafc;
+    font-family: inherit;
+}
+
+.search-input::placeholder {
+    color: #94a3b8;
+}
+
+.status-filter {
+    padding: 0.8rem 1rem;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #1e293b;
+    color: #f8fafc;
+    font-family: inherit;
+    min-width: 150px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.approve-btn,
+.reject-btn,
+.delete-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: opacity 0.3s;
+}
+
+.approve-btn {
+    background: #10b981;
+    color: white;
+}
+
+.reject-btn {
+    background: #f59e0b;
+    color: white;
+    /* Will be overridden to blue inline for 'Resolved' */
+}
+
+.delete-btn {
+    background: #ef4444;
+    color: white;
+}
+
+.approve-btn:hover,
+.reject-btn:hover,
+.delete-btn:hover {
+    opacity: 0.8;
+}
+
+.status-badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-badge.read {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+}
+
+.status-badge.resolved {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+}
+
+.status-badge.pending {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+}
+
+.export-btn {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.export-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
