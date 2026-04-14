@@ -69,7 +69,7 @@ const InternshipDetail = () => {
                             <span className="badge">Remote / In-office</span>
                         </div>
 
-                        <div 
+                        <div
                             className="full-description"
                             dangerouslySetInnerHTML={{ __html: internship.description }}
                         />
@@ -81,7 +81,7 @@ const InternshipDetail = () => {
                                 <li>Project Completion Certificate</li>
                                 <li>Hands-on experience with real-world projects</li>
                                 <li>Mentorship from industry experts</li>
-                                <li>Letter of Recommendation (based on performance)</li>
+                                <li>Job Offer (based on performance)</li>
                             </ul>
                         </div>
                     </div>
@@ -93,8 +93,8 @@ const InternshipDetail = () => {
 
                             <div className="duration-picker">
                                 <label>Duration</label>
-                                <select 
-                                    value={selectedDur} 
+                                <select
+                                    value={selectedDur}
                                     onChange={(e) => setSelectedDur(e.target.value)}
                                 >
                                     {internship.durations.map((d, i) => (
@@ -120,7 +120,7 @@ const InternshipDetail = () => {
                 </div>
             </div>
 
-            <ApplicationModal 
+            <ApplicationModal
                 show={showModal}
                 closeModal={() => setShowModal(false)}
                 selectedDomain={internship.title}
