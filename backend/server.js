@@ -36,16 +36,37 @@ pool.connect(async (err, client, release) => {
   release();
   console.log('Connected to the database');
 
-  // Initialize Database Tables
-  await createAdminTable();
-  await createClientUsersTable();
-  await createProjectsTable();
-  await createRequestsTable();
-  await createInternshipApplicationsTable();
-  await createInternshipsTable();
-  await createCertificatesTable();
-  await createContactMessagesTable();
-  await createPortfolioProjectsTable();
+  // Initialize Database Tables and Indexes in Parallel
+  try {
+    await Promise.all([
+      createAdminTable(),
+      createClientUsersTable(),
+      createProjectsTable(),
+      createRequestsTable(),
+      createInternshipApplicationsTable(),
+      createInternshipsTable(),
+      createCertificatesTable(),
+      createContactMessagesTable(),
+      createPortfolioProjectsTable()
+    ]);
+
+    // Ensure database indexes for performance
+    const indexQueries = [
+      "CREATE INDEX IF NOT EXISTS idx_projects_created_at ON projects(created_at DESC)",
+      "CREATE INDEX IF NOT EXISTS idx_internships_created_at ON internships(created_at DESC)",
+      "CREATE INDEX IF NOT EXISTS idx_portfolio_created_at ON portfolio_projects(created_at DESC)",
+      "CREATE INDEX IF NOT EXISTS idx_project_requests_created_at ON project_requests(created_at DESC)",
+      "CREATE INDEX IF NOT EXISTS idx_intern_apps_created_at ON internship_applications(created_at DESC)",
+      "CREATE INDEX IF NOT EXISTS idx_certificates_ref ON certificates(reference_number)",
+      "CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at ON contact_messages(created_at DESC)"
+    ];
+    
+    await Promise.all(indexQueries.map(q => pool.query(q)));
+    
+    console.log('Database initialized and optimized with indexes');
+  } catch (err) {
+    console.error('Error during database initialization:', err);
+  }
 });
 
 const PORT = process.env.PORT || 5000;
