@@ -95,6 +95,7 @@ const VerifyCertificate = () => {
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="view-btn"
+                        download={`${certificate.name.replace(/\s+/g, '_')}_Certificate.pdf`}
                     >
                         View Original Certificate (PDF)
                     </a>

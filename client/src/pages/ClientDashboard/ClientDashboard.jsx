@@ -190,7 +190,7 @@ const ClientDashboard = () => {
                                             <td>{g.project_title || "N/A"}</td>
                                             <td>
                                                 {g.internshipCert ? (
-                                                    <a href={`${url}${g.internshipCert}`} target="_blank" rel="noreferrer" className="download-btn">
+                                                    <a href={`${url}${g.internshipCert}`} target="_blank" rel="noreferrer" className="download-btn" download={`${g.title.replace(/\s+/g, '_')}_Internship_Certificate.pdf`}>
                                                         Download Internship
                                                     </a>
                                                 ) : (
@@ -199,7 +199,7 @@ const ClientDashboard = () => {
                                             </td>
                                             <td>
                                                 {g.projectCert ? (
-                                                    <a href={`${url}${g.projectCert}`} target="_blank" rel="noreferrer" className="download-btn">
+                                                    <a href={`${url}${g.projectCert}`} target="_blank" rel="noreferrer" className="download-btn" download={`${g.title.replace(/\s+/g, '_')}_Project_Certificate.pdf`}>
                                                         Download Project
                                                     </a>
                                                 ) : (
