@@ -108,11 +108,12 @@ const Dashboard = () => {
                 height: "400px"
             }}>
                 <h3 style={{ marginBottom: "1.5rem", color: "#f9fafb" }}>Activity Overview (Last 6 Months)</h3>
-                <div style={{ height: "350px", width: "100%", position: 'relative' }}>
-                    <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0} debounce={100}>
-                    <LineChart data={graphData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
-                        <XAxis dataKey="name" stroke="#94a3b8" />
+                <div style={{ height: "350px", width: "100%", position: 'relative', minHeight: '350px' }}>
+                    {graphData.length > 0 && (
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={graphData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
+                                <XAxis dataKey="name" stroke="#94a3b8" />
                         <YAxis stroke="#94a3b8" />
                         <Tooltip
                             contentStyle={{ backgroundColor: "#1e293b", borderColor: "#334155", color: "#f8fafc", borderRadius: '8px' }}
@@ -121,8 +122,9 @@ const Dashboard = () => {
                         <Legend wrapperStyle={{ paddingTop: '20px' }} />
                         <Line type="monotone" dataKey="requests" stroke="#f59e0b" strokeWidth={3} activeDot={{ r: 8 }} name="Requests" />
                         <Line type="monotone" dataKey="applications" stroke="#10b981" strokeWidth={3} name="Applications" />
-                    </LineChart>
-                </ResponsiveContainer>
+                            </LineChart>
+                        </ResponsiveContainer>
+                    )}
                 </div>
             </div>
 
