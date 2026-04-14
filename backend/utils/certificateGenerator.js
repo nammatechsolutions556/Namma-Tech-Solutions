@@ -100,7 +100,7 @@ const generateCertificate = async (data) => {
 
         try {
             // QR code should point to the frontend verification page
-            const qrUrl = `https://namma-tech-solutions-client.onrender.com/verify-certificate/${refNum}`;
+            const qrUrl = `https://namma-tech-solutions-1.onrender.com/verify-certificate/${refNum}`;
 
             const qrOptions = {
                 errorCorrectionLevel: 'H', // High error correction for URLs
