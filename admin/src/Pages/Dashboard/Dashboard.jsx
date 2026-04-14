@@ -20,7 +20,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                const response = await api.get("/dashboard");
+                const response = await api.get("dashboard");
                 setStats(response.data.stats);
                 setRecentRequests(response.data.recentRequests);
                 setRecentMessages(response.data.recentMessages);
@@ -110,7 +110,7 @@ const Dashboard = () => {
                 <h3 style={{ marginBottom: "1.5rem", color: "#f9fafb" }}>Activity Overview (Last 6 Months)</h3>
                 <div style={{ height: "350px", width: "100%", position: 'relative', minHeight: '350px' }}>
                     {graphData.length > 0 && (
-                        <ResponsiveContainer width="100%" height="100%">
+                        <ResponsiveContainer width="100%" height="100%" minHeight={350}>
                             <LineChart data={graphData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.1)" />
                                 <XAxis dataKey="name" stroke="#94a3b8" />

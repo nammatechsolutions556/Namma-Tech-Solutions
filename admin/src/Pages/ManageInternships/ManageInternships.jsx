@@ -17,7 +17,7 @@ const ManageInternships = () => {
 
     const fetchInternships = async () => {
         try {
-            const res = await api.get("/internships");
+            const res = await api.get("internships");
             setInternships(res.data);
         } catch (error) {
             console.error("Error fetching internships:", error);
@@ -48,9 +48,9 @@ const ManageInternships = () => {
 
         try {
             if (editingId) {
-                await api.put(`/internships/${editingId}`, payload);
+                await api.put(`internships/${editingId}`, payload);
             } else {
-                await api.post("/internships", payload);
+                await api.post("internships", payload);
             }
         } catch (error) {
             console.error("Failed to save internship data:", error);
@@ -65,7 +65,7 @@ const ManageInternships = () => {
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/internships/${id}`);
+            await api.delete(`internships/${id}`);
             fetchInternships();
         } catch (error) {
             console.error("Failed to delete internship:", error);

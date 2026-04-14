@@ -22,7 +22,7 @@ const ManagePortfolio = () => {
 
     const fetchPortfolioProjects = async () => {
         try {
-            const res = await api.get("/portfolio");
+            const res = await api.get("portfolio");
             setProjects(res.data);
         } catch (error) {
             console.error("Error fetching portfolio projects", error);
@@ -61,9 +61,9 @@ const ManagePortfolio = () => {
 
         try {
             if (editingId) {
-                await api.put(`/portfolio/${editingId}`, formData);
+                await api.put(`portfolio/${editingId}`, formData);
             } else {
-                await api.post("/portfolio", formData);
+                await api.post("portfolio", formData);
             }
         } catch (error) {
             console.error("Error saving portfolio project", error);
@@ -93,7 +93,7 @@ const ManagePortfolio = () => {
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/portfolio/${id}`);
+            await api.delete(`portfolio/${id}`);
             fetchPortfolioProjects();
         } catch (error) {
             console.error("Error deleting portfolio project", error);

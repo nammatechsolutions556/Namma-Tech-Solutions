@@ -11,7 +11,7 @@ const ManageApplications = () => {
 
     const fetchApplications = async () => {
         try {
-            const res = await api.get("/applications");
+            const res = await api.get("applications");
             setApplications(res.data);
         } catch (error) {
             console.error("Error fetching applications:", error);
@@ -24,7 +24,7 @@ const ManageApplications = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            await api.put(`/applications/${id}`, { status });
+            await api.put(`applications/${id}`, { status });
             fetchApplications();
         } catch (error) {
             console.error("Error updating status:", error);
@@ -33,7 +33,7 @@ const ManageApplications = () => {
 
     const deleteApplication = async (id) => {
         try {
-            await api.delete(`/applications/${id}`);
+            await api.delete(`applications/${id}`);
             fetchApplications();
         } catch (error) {
             console.error("Error deleting application:", error);
@@ -82,10 +82,10 @@ const ManageApplications = () => {
         if (!window.confirm(`Are you sure you want to ${action} ${selectedIds.length} items?`)) return;
         try {
             if (action === 'delete') {
-                await Promise.all(selectedIds.map(id => api.delete(`/applications/${id}`)));
+                await Promise.all(selectedIds.map(id => api.delete(`applications/${id}`)));
             } else {
                 const status = action === 'approve' ? 'Approved' : 'Rejected';
-                await Promise.all(selectedIds.map(id => api.put(`/applications/${id}`, { status })));
+                await Promise.all(selectedIds.map(id => api.put(`applications/${id}`, { status })));
             }
             fetchApplications();
             setSelectedIds([]);

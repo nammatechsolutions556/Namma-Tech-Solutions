@@ -28,7 +28,7 @@ const ManageCertificates = () => {
 
     const fetchCertificates = async () => {
         try {
-            const res = await api.get("/certificates");
+            const res = await api.get("certificates");
             setCertificates(res.data);
         } catch (error) {
             console.error("Error fetching certificates", error);
@@ -63,11 +63,11 @@ const ManageCertificates = () => {
         try {
             const submitData = { ...form, certType: typeToUse };
             if (editingId) {
-                await api.put(`/certificates/${editingId}`, submitData);
+                await api.put(`certificates/${editingId}`, submitData);
                 alert("Certificate updated successfully!");
                 setEditingId(null);
             } else {
-                await api.post("/certificates", submitData);
+                await api.post("certificates", submitData);
                 alert(`${typeToUse} certificate generated successfully!`);
             }
 
@@ -107,7 +107,7 @@ const ManageCertificates = () => {
     const deleteCertificate = async (id) => {
         if (!window.confirm("Are you sure you want to delete this certificate?")) return;
         try {
-            await api.delete(`/certificates/${id}`);
+            await api.delete(`certificates/${id}`);
             fetchCertificates();
         } catch (error) {
             console.error("Error deleting certificate", error);
@@ -118,7 +118,7 @@ const ManageCertificates = () => {
     const sendCertificate = async (id) => {
         if (!window.confirm("Send this certificate to the client's email?")) return;
         try {
-            await api.post(`/certificates/${id}/send`);
+            await api.post(`certificates/${id}/send`);
             alert("Certificate sent successfully!");
             fetchCertificates();
         } catch (error) {
@@ -179,10 +179,10 @@ const ManageCertificates = () => {
         if (!window.confirm(`Are you sure you want to ${action} ${selectedIds.length} certificates?`)) return;
         try {
             if (action === 'delete') {
-                await Promise.all(selectedIds.map(id => api.delete(`/certificates/${id}`)));
+                await Promise.all(selectedIds.map(id => api.delete(`certificates/${id}`)));
                 alert("Deleted successfully!");
             } else if (action === 'sendEmail') {
-                await Promise.all(selectedIds.map(id => api.post(`/certificates/${id}/send`)));
+                await Promise.all(selectedIds.map(id => api.post(`certificates/${id}/send`)));
                 alert("Emails trigger sent!");
             }
             fetchCertificates();

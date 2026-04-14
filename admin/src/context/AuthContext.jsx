@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     // Handle Login
     const login = async (email, password) => {
         try {
-            const response = await api.post("/auth/admin/login", { email, password });
+            const response = await api.post("auth/admin/login", { email, password });
 
             if (response.data && response.data.token) {
                 const adminProfile = { name: "Admin", email: response.data.email };

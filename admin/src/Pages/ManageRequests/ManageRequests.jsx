@@ -11,7 +11,7 @@ const ManageRequests = () => {
 
     const fetchRequests = async () => {
         try {
-            const res = await api.get("/requests");
+            const res = await api.get("requests");
             setRequests(res.data);
         } catch (error) {
             console.error("Error fetching requests:", error);
@@ -24,7 +24,7 @@ const ManageRequests = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            await api.put(`/requests/${id}`, { status });
+            await api.put(`requests/${id}`, { status });
             fetchRequests();
         } catch (error) {
             console.error("Error updating status:", error);
@@ -33,7 +33,7 @@ const ManageRequests = () => {
 
     const deleteRequest = async (id) => {
         try {
-            await api.delete(`/requests/${id}`);
+            await api.delete(`requests/${id}`);
             fetchRequests();
         } catch (error) {
             console.error("Error deleting request:", error);
@@ -82,10 +82,10 @@ const ManageRequests = () => {
         if (!window.confirm(`Are you sure you want to ${action} ${selectedIds.length} items?`)) return;
         try {
             if (action === 'delete') {
-                await Promise.all(selectedIds.map(id => api.delete(`/requests/${id}`)));
+                await Promise.all(selectedIds.map(id => api.delete(`requests/${id}`)));
             } else {
                 const status = action === 'approve' ? 'Approved' : 'Rejected';
-                await Promise.all(selectedIds.map(id => api.put(`/requests/${id}`, { status })));
+                await Promise.all(selectedIds.map(id => api.put(`requests/${id}`, { status })));
             }
             fetchRequests();
             setSelectedIds([]);

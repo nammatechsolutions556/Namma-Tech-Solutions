@@ -11,7 +11,7 @@ const ClientEnquiries = () => {
 
     const fetchEnquiries = async () => {
         try {
-            const res = await api.get("/contact");
+            const res = await api.get("contact");
             setEnquiries(res.data);
         } catch (error) {
             console.error("Error fetching enquiries:", error);
@@ -24,7 +24,7 @@ const ClientEnquiries = () => {
 
     const updateStatus = async (id, status) => {
         try {
-            await api.put(`/contact/${id}`, { status });
+            await api.put(`contact/${id}`, { status });
             fetchEnquiries();
         } catch (error) {
             console.error("Error updating status:", error);
@@ -33,7 +33,7 @@ const ClientEnquiries = () => {
 
     const deleteEnquiry = async (id) => {
         try {
-            await api.delete(`/contact/${id}`);
+            await api.delete(`contact/${id}`);
             fetchEnquiries();
         } catch (error) {
             console.error("Error deleting enquiry:", error);
@@ -86,10 +86,10 @@ const ClientEnquiries = () => {
         if (!window.confirm(`Are you sure you want to ${action} ${selectedIds.length} items?`)) return;
         try {
             if (action === 'delete') {
-                await Promise.all(selectedIds.map(id => api.delete(`/contact/${id}`)));
+                await Promise.all(selectedIds.map(id => api.delete(`contact/${id}`)));
             } else {
                 const status = action === 'mark read' ? 'Read' : 'Resolved';
-                await Promise.all(selectedIds.map(id => api.put(`/contact/${id}`, { status })));
+                await Promise.all(selectedIds.map(id => api.put(`contact/${id}`, { status })));
             }
             fetchEnquiries();
             setSelectedIds([]);

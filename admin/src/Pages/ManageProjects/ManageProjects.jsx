@@ -21,7 +21,7 @@ const ManageProjects = () => {
 
     const fetchProjects = async () => {
         try {
-            const res = await api.get("/projects");
+            const res = await api.get("projects");
             setProjects(res.data);
         } catch (error) {
             console.error("Error fetching projects", error);
@@ -61,9 +61,9 @@ const ManageProjects = () => {
 
         try {
             if (editingId) {
-                await api.put(`/projects/${editingId}`, formData);
+                await api.put(`projects/${editingId}`, formData);
             } else {
-                await api.post("/projects", formData);
+                await api.post("projects", formData);
             }
         } catch (error) {
             console.error("Error saving project", error);
@@ -92,7 +92,7 @@ const ManageProjects = () => {
 
     const handleDelete = async (id) => {
         try {
-            await api.delete(`/projects/${id}`);
+            await api.delete(`projects/${id}`);
             fetchProjects();
         } catch (error) {
             console.error("Error deleting project", error);
