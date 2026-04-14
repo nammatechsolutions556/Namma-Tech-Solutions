@@ -1,5 +1,5 @@
 const express = require("express");
-const { getProjects, createProject, updateProject, deleteProject } = require("../controllers/projectController");
+const { getProjects, getProjectById, createProject, updateProject, deleteProject } = require("../controllers/projectController");
 const { protectAdmin } = require("../middlewares/authMiddleware");
 const upload = require("../middlewares/uploadMiddleware");
 
@@ -7,6 +7,7 @@ const router = express.Router();
 
 // Public route to get all projects natively
 router.get("/", getProjects);
+router.get("/:id", getProjectById);
 
 // Protected admin routes to manage projects
 router.post(

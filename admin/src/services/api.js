@@ -11,6 +11,9 @@ const api = axios.create({
     baseURL: API_URL
 });
 
+// Base URL for linking to static files (removes /api and trailing slash)
+export const BASE_URL = (rawUrl.replace(/\/api$/, "").replace(/\/$/, ""));
+
 // Request Interceptor to automatically attach token if available
 api.interceptors.request.use(
     (config) => {

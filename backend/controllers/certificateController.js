@@ -257,7 +257,7 @@ const verifyCertificate = async (req, res) => {
             `SELECT name, email, internship, certificate_url AS "certificateUrl",
              university, domain, start_date, end_date, gained_skills, reference_number, 
              company_name, cert_type, project_title, created_at
-             FROM certificates WHERE reference_number = $1`,
+             FROM certificates WHERE UPPER(reference_number) = UPPER($1)`,
             [referenceNumber]
         );
 

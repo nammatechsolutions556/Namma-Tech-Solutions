@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../services/api";
+import api, { BASE_URL } from "../../services/api";
 import { exportToExcel } from "../../utils/exportToExcel";
 import "./ManageCertificates.css";
 
@@ -370,7 +370,7 @@ const ManageCertificates = () => {
                             {c.is_sent && <span className="status-badge-sent">Sent to Client</span>}
                         </div>
                         <div className="cert-actions">
-                            <a href={`http://localhost:5000${c.certificateUrl}`} target="_blank" rel="noopener noreferrer" className="view-btn">
+                            <a href={`${BASE_URL}${c.certificateUrl}`} target="_blank" rel="noopener noreferrer" className="view-btn">
                                 View PDF
                             </a>
                             <button className="edit-btn" onClick={() => editCertificate(c)}>Edit</button>

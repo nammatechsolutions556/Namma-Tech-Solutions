@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../services/api";
+import api, { BASE_URL } from "../../services/api";
 import { exportToExcel } from "../../utils/exportToExcel";
 import "./ManageApplications.css";
 
@@ -169,7 +169,7 @@ const ManageApplications = () => {
                                 {a.resume_url ? (
                                     <div className="resume-actions" style={{ display: 'flex', gap: '0.5rem' }}>
                                         <a
-                                            href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${a.resume_url}`}
+                                            href={`${BASE_URL}${a.resume_url}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="view-btn"
@@ -185,7 +185,7 @@ const ManageApplications = () => {
                                             View
                                         </a>
                                         <a
-                                            href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${a.resume_url}`}
+                                            href={`${BASE_URL}${a.resume_url}`}
                                             download
                                             className="download-btn"
                                             style={{
