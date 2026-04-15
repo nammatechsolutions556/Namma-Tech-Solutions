@@ -13,6 +13,9 @@ const getProjects = async (req, res) => {
 
 // Create a new project
 const createProject = async (req, res) => {
+    console.log("[DEBUG] createProject reached. Body:", req.body);
+    console.log("[DEBUG] createProject reached. Files:", req.files ? Object.keys(req.files) : "None");
+
     const { title, category, description, price } = req.body;
     try {
         let imageUrls = [];
@@ -27,20 +30,24 @@ const createProject = async (req, res) => {
             }
         }
 
+        console.log("[DEBUG] Inserting project into database...");
         const result = await pool.query(
             "INSERT INTO projects (title, category, description, price, images, video) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id AS _id, title, category, price, description, images, video",
-            [title, category, description, price, imageUrls, videoUrl]
+            [title || "", category || "", description || "", price || "", imageUrls, videoUrl]
         );
+        console.log("[DEBUG] Project inserted successfully:", result.rows[0]);
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Server error creating project" });
+        console.error("[ERROR] Failed to create project:", err);
+        res.status(500).json({ message: "Server error creating project", error: err.message });
     }
 };
 
 // Update a project
 const updateProject = async (req, res) => {
     const { id } = req.params;
+    console.log(`[DEBUG] updateProject reached for ID: ${id}. Body:`, req.body);
+    
     const { title, category, description, price } = req.body;
 
     // Parse existing images that were kept

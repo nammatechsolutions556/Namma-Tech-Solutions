@@ -19,7 +19,8 @@ const API_URL = (rawUrl.endsWith("/api") ? rawUrl : `${rawUrl}/api`).replace(/\/
 
 // Create an Axios instance
 const api = axios.create({
-    baseURL: API_URL
+    baseURL: API_URL,
+    timeout: 30000 // 30 seconds
 });
 
 // Base URL for linking to static files (removes /api and trailing slash)
