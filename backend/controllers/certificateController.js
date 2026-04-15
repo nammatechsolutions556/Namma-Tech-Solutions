@@ -272,6 +272,64 @@ const verifyCertificate = async (req, res) => {
     }
 };
 
+// Serve a certificate PDF, regenerating it if it's missing from the filesystem
+const serveCertificate = async (req, res) => {
+    const { fileName } = req.params;
+    const fullPath = path.join(__dirname, "..", "public", "certificates", fileName);
+    const dbPath = `/public/certificates/${fileName}`;
+
+    try {
+        // 1. Check if file exists
+        if (fs.existsSync(fullPath)) {
+            return res.sendFile(fullPath);
+        }
+
+        console.log(`[DEBUG] Certificate file missing on disk: ${fileName}. Attempting regeneration...`);
+
+        // 2. File missing, fetch from DB
+        const result = await pool.query(
+            `SELECT * FROM certificates WHERE certificate_url = $1`,
+            [dbPath]
+        );
+
+        if (result.rows.length === 0) {
+            console.warn(`[WARN] Certificate not found in database for path: ${dbPath}`);
+            return res.status(404).send("Certificate not found.");
+        }
+
+        const cert = result.rows[0];
+
+        // 3. Regenerate buffer
+        // Note: we need to map DB column names (snake_case) to the generator's expected camelCase/specific names
+        const pdfBuffer = await generateCertificate({
+            name: cert.name,
+            email: cert.email,
+            certType: cert.cert_type,
+            title: cert.internship.split(" (Project:")[0], // Extract clean title if needed
+            projectTitle: cert.project_title,
+            university: cert.university,
+            domain: cert.domain,
+            startDate: cert.start_date ? cert.start_date.toISOString().split('T')[0] : null,
+            endDate: cert.end_date ? cert.end_date.toISOString().split('T')[0] : null,
+            gainedSkills: cert.gained_skills,
+            referenceNumber: cert.reference_number,
+            companyName: cert.company_name,
+            staticPath: cert.certificate_url
+        });
+
+        // 4. Save to disk for future requests
+        fs.writeFileSync(fullPath, pdfBuffer);
+        console.log(`[DEBUG] Successfully regenerated and saved certificate: ${fileName}`);
+
+        // 5. Serve the newly created file
+        res.sendFile(fullPath);
+
+    } catch (err) {
+        console.error("Error serving/regenerating certificate:", err);
+        res.status(500).send("Error retrieving certificate.");
+    }
+};
+
 module.exports = {
     getCertificates,
     getClientCertificates,
@@ -279,5 +337,6 @@ module.exports = {
     deleteCertificate,
     sendCertificate,
     updateCertificate,
-    verifyCertificate
+    verifyCertificate,
+    serveCertificate
 };

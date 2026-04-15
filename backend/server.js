@@ -23,10 +23,16 @@ const contactRoutes = require('./routes/contactRoutes.js');
 const dashboardRoutes = require('./routes/dashboardRoutes.js');
 const portfolioRoutes = require('./routes/portfolioRoutes.js');
 
+const { serveCertificate } = require('./controllers/certificateController.js');
+
 // Middlewares
 const path = require('path');
 app.use(cors());
 app.use(express.json());
+
+// Smart Serving for Certificates (intercepts before static middleware)
+app.get('/public/certificates/:fileName', serveCertificate);
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 pool.connect(async (err, client, release) => {
