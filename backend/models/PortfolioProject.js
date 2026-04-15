@@ -1,6 +1,7 @@
 const pool = require('../config/db');
 
 const createPortfolioProjectsTable = async () => {
+    const query = `
         CREATE TABLE IF NOT EXISTS portfolio_projects (
             id SERIAL PRIMARY KEY,
             title VARCHAR(255) NOT NULL,
