@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import api from "../../services/api";
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
@@ -13,6 +13,7 @@ const ManageProjects = () => {
         price: "",
     });
 
+    const videoInputRef = useRef(null);
     const [video, setVideo] = useState(null);
     const [existingVideo, setExistingVideo] = useState(null);
     const [editingId, setEditingId] = useState(null);
@@ -84,6 +85,9 @@ const ManageProjects = () => {
             setVideo(null);
             setExistingVideo(null);
             setEditingId(null);
+            if (videoInputRef.current) {
+                videoInputRef.current.value = "";
+            }
             fetchProjects();
         } catch (error) {
             console.error("Error saving project", error);
@@ -152,6 +156,7 @@ const ManageProjects = () => {
                     <input
                         type="file"
                         accept="video/*"
+                        ref={videoInputRef}
                         onChange={(e) => setVideo(e.target.files[0])}
                     />
                 </div>
