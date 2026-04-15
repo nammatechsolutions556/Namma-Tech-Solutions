@@ -160,36 +160,7 @@ const ManageProjects = () => {
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? "Processing..." : (editingId ? "Update Project" : "Add Project")}
                     </button>
-                    <button 
-                        type="button" 
-                        className="test-btn" 
-                        style={{ backgroundColor: '#4a90e2', color: 'white' }}
-                        onClick={async () => {
-                            try {
-                                const res = await api.get("projects/test-connectivity");
-                                alert(`Success: ${res.data.message}`);
-                            } catch (error) {
-                                alert(`Failed: ${error.message}`);
-                            }
-                        }}
-                    >
-                        Test API
-                    </button>
-                    <button 
-                        type="button" 
-                        className="test-btn" 
-                        style={{ backgroundColor: '#2ecc71', color: 'white' }}
-                        onClick={async () => {
-                            try {
-                                const res = await api.get("projects/test-db");
-                                alert(`Success: ${res.data.message} (Server Time: ${res.data.time})`);
-                            } catch (error) {
-                                alert(`Failed: ${error.message}`);
-                            }
-                        }}
-                    >
-                        Test DB
-                    </button>
+
                 </div>
             </form>
 

@@ -1,26 +1,5 @@
 const pool = require("../config/db");
 
-// Database health check
-const testDBConnection = async (req, res) => {
-    try {
-        console.log("[DEBUG] Testing DB connection...");
-        const result = await pool.query("SELECT NOW()");
-        const sslEnabled = pool.options.ssl ? "Enabled" : "Disabled";
-        res.json({ 
-            message: "DB Connectivity OK", 
-            time: result.rows[0].now,
-            ssl: sslEnabled
-        });
-    } catch (err) {
-        console.error("[ERROR] DB health check failed:", err);
-        res.status(500).json({ 
-            message: "DB Connectivity Failed", 
-            error: err.message,
-            hint: "Check if DB host is correct and SSL is enabled/disabled correctly for the environment."
-        });
-    }
-};
-
 // Get all projects
 const getProjects = async (req, res) => {
     try {
@@ -159,6 +138,5 @@ module.exports = {
     getProjectById,
     createProject,
     updateProject,
-    deleteProject,
-    testDBConnection
+    deleteProject
 };
