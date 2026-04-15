@@ -14,6 +14,7 @@ import ProjectDetail from './pages/Projects/ProjectDetail.jsx'
 import Internships from './pages/Internships/Internships.jsx'
 import InternshipDetail from './pages/Internships/InternshipDetail.jsx'
 import Portfolio from './pages/Portfolio/Portfolio.jsx'
+import PortfolioDetail from './pages/Portfolio/PortfolioDetail.jsx'
 import ClientDashboard from './pages/ClientDashboard/ClientDashboard.jsx'
 import VerifyCertificate from './pages/VerifyCertificate/VerifyCertificate.jsx'
 
@@ -38,6 +39,7 @@ function App() {
         <Route path='/internships' element={<Internships />} />
         <Route path='/internships/:id' element={<InternshipDetail />} />
         <Route path='/portfolio' element={<Portfolio />} />
+        <Route path='/portfolio/:id' element={<PortfolioDetail />} />
         <Route path='/client-dashboard' element={<ClientDashboard />} />
         <Route path='/verify-certificate/:referenceNumber' element={<VerifyCertificate />} />
 

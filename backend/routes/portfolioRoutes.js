@@ -1,11 +1,12 @@
 const express = require("express");
-const { getPortfolioProjects, createPortfolioProject, updatePortfolioProject, deletePortfolioProject } = require("../controllers/portfolioController");
+const { getPortfolioProjects, getPortfolioProjectById, createPortfolioProject, updatePortfolioProject, deletePortfolioProject } = require("../controllers/portfolioController");
 const { protectAdmin } = require("../middlewares/authMiddleware");
 const upload = require("../middlewares/uploadMiddleware");
 
 const router = express.Router();
 
 router.get("/", getPortfolioProjects);
+router.get("/:id", getPortfolioProjectById);
 
 router.post(
     "/",
