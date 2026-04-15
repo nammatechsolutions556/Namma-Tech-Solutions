@@ -199,7 +199,7 @@ const HomePage = () => {
         </Link>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* TESTIMONIALS
       <section className="testimonials fade-in-section">
         <h2>Client & Student Success</h2>
         <div className="testimonial-grid">
@@ -245,7 +245,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CALL TO ACTION & CONTACT */}
       <section className="cta-contact-unified fade-in-section">
