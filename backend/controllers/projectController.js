@@ -46,7 +46,7 @@ const createProject = async (req, res) => {
             }
         }
 
-        console.log(`[${timestamp}] [DEBUG] Attempting database INSERT...`);
+        console.log(`[${timestamp}] [DEBUG] File processing complete. Starting database INSERT query...`);
         // Start a timer for the query
         const startQuery = Date.now();
         

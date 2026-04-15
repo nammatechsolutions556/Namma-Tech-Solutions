@@ -10,7 +10,7 @@ if (!fs.existsSync(uploadDir)) {
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log(`[DEBUG] Multer receiving file: ${file.originalname}`);
+        console.log(`[${new Date().toISOString()}] [DEBUG] Multer: Writing file to disk: ${file.originalname}`);
         cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
