@@ -27,10 +27,13 @@ const getProjects = async (req, res) => {
 const createProject = async (req, res) => {
     const timestamp = new Date().toISOString();
     console.log(`[${timestamp}] [DEBUG] createProject starting...`);
-    console.log(`[${timestamp}] [DEBUG] Body keys:`, Object.keys(req.body));
-    console.log(`[${timestamp}] [DEBUG] Files:`, req.files ? Object.keys(req.files) : "None");
-
     const { title, category, description, price } = req.body;
+
+    // Early validation after Multer parsing
+    if (!title || !category || !description) {
+        console.warn(`[${timestamp}] [WARN] Missing fields:`, { title: !!title, category: !!category, description: !!description });
+        return res.status(400).json({ message: "Title, Category, and Description are required." });
+    }
     try {
         let imageUrls = [];
         let videoUrl = null;
@@ -41,27 +44,31 @@ const createProject = async (req, res) => {
                 imageUrls = req.files.images.map(file => `/public/uploads/${file.filename}`);
             }
             if (req.files.video && req.files.video.length > 0) {
-                console.log(`[${timestamp}] [DEBUG] Processing video...`);
+                console.log(`[${timestamp}] [DEBUG] Mapping video...`);
                 videoUrl = `/public/uploads/${req.files.video[0].filename}`;
             }
         }
 
-        console.log(`[${timestamp}] [DEBUG] File processing complete. Starting database INSERT query...`);
-        // Start a timer for the query
-        const startQuery = Date.now();
+        console.log(`[${timestamp}] [DEBUG] File processing complete. Executing DB INSERT...`);
         
-        const result = await pool.query(
+        // Use a timeout race to prevent hanging indefinitely
+        const queryPromise = pool.query(
             "INSERT INTO projects (title, category, description, price, images, video) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id AS _id, title, category, price, description, images, video",
-            [title || "", category || "", description || "", price || "", imageUrls, videoUrl]
+            [title.trim(), category.trim(), description.trim(), price ? price.trim() : "", imageUrls, videoUrl]
         );
 
-        const duration = Date.now() - startQuery;
-        console.log(`[${timestamp}] [DEBUG] Database INSERT successful in ${duration}ms`);
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("Database query timeout")), 15000)
+        );
+
+        const result = await Promise.race([queryPromise, timeoutPromise]);
         
+        console.log(`[${timestamp}] [DEBUG] DB INSERT successful.`);
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(`[${timestamp}] [ERROR] createProject failed:`, err);
-        res.status(500).json({ message: "Server error creating project", error: err.message });
+        console.error(`[${timestamp}] [ERROR] createProject failed:`, err.message);
+        const status = err.message === "Database query timeout" ? 504 : 500;
+        res.status(status).json({ message: "Failed to create project", error: err.message });
     }
 };
 
