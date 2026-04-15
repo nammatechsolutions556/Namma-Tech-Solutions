@@ -3,7 +3,7 @@ const pool = require("../config/db");
 // Get all portfolio projects
 const getPortfolioProjects = async (req, res) => {
     try {
-        const result = await pool.query("SELECT id AS _id, title, category, price, description, images, videos, completed_date FROM portfolio_projects ORDER BY completed_date DESC, created_at DESC");
+        const result = await pool.query("SELECT id AS _id, title, category, price, description, video, completed_date FROM portfolio_projects ORDER BY completed_date DESC, created_at DESC");
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);
@@ -15,25 +15,19 @@ const getPortfolioProjects = async (req, res) => {
 const createPortfolioProject = async (req, res) => {
     const { title, category, description, price, completed_date } = req.body;
     try {
-        let imageUrls = [];
-        let videoUrls = [];
+        let videoUrl = null;
 
-        if (req.files) {
-            if (req.files.images) {
-                imageUrls = req.files.images.map(file => `/public/uploads/${file.filename}`);
-            }
-            if (req.files.videos && req.files.videos.length > 0) {
-                videoUrls = req.files.videos.map(file => `/public/uploads/${file.filename}`);
-            }
+        if (req.files && req.files.video && req.files.video.length > 0) {
+            videoUrl = `/public/uploads/${req.files.video[0].filename}`;
         }
 
         const query = `
-            INSERT INTO portfolio_projects (title, category, description, price, completed_date, images, videos) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7) 
-            RETURNING id AS _id, title, category, price, description, completed_date, images, videos
+            INSERT INTO portfolio_projects (title, category, description, price, completed_date, video) 
+            VALUES ($1, $2, $3, $4, $5, $6) 
+            RETURNING id AS _id, title, category, price, description, completed_date, video
         `;
         const result = await pool.query(query, [
-            title, category, description, price, completed_date || null, imageUrls, videoUrls
+            title, category, description, price, completed_date || null, videoUrl
         ]);
 
         res.status(201).json(result.rows[0]);
@@ -47,42 +41,21 @@ const createPortfolioProject = async (req, res) => {
 const updatePortfolioProject = async (req, res) => {
     const { id } = req.params;
     const { title, category, description, price, completed_date } = req.body;
-
-    // Parse existing media that were kept
-    let existingImages = req.body.existingImages || [];
-    if (typeof existingImages === 'string') {
-        existingImages = [existingImages];
-    }
-
-    let existingVideos = req.body.existingVideos || [];
-    if (typeof existingVideos === 'string') {
-        existingVideos = [existingVideos];
-    }
+    let videoUrl = req.body.existingVideo || null;
 
     try {
-        let imageUrls = [...existingImages];
-        let videoUrls = [...existingVideos];
-
-        // Add newly uploaded files
-        if (req.files) {
-            if (req.files.images) {
-                const newImageUrls = req.files.images.map(file => `/public/uploads/${file.filename}`);
-                imageUrls = [...imageUrls, ...newImageUrls].slice(0, 20); // Cap at 20 images
-            }
-            if (req.files.videos) {
-                const newVideoUrls = req.files.videos.map(file => `/public/uploads/${file.filename}`);
-                videoUrls = [...videoUrls, ...newVideoUrls].slice(0, 2); // Cap at 2 videos
-            }
+        if (req.files && req.files.video && req.files.video.length > 0) {
+            videoUrl = `/public/uploads/${req.files.video[0].filename}`;
         }
 
         const query = `
             UPDATE portfolio_projects 
-            SET title = $1, category = $2, description = $3, price = $4, completed_date = $5, images = $6, videos = $7 
-            WHERE id = $8 
-            RETURNING id AS _id, title, category, price, description, completed_date, images, videos
+            SET title = $1, category = $2, description = $3, price = $4, completed_date = $5, video = $6 
+            WHERE id = $7 
+            RETURNING id AS _id, title, category, price, description, completed_date, video
         `;
         const result = await pool.query(query, [
-            title, category, description, price, completed_date || null, imageUrls, videoUrls, id
+            title, category, description, price, completed_date || null, videoUrl, id
         ]);
 
         if (result.rows.length === 0) {

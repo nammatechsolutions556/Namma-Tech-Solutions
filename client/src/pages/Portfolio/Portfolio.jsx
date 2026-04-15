@@ -91,11 +91,14 @@ const Portfolio = () => {
                 ) : (
                     filteredProjects.map((project) => (
                         <div className="portfolio-card" key={project._id}>
-                            {project.images && project.images.length > 0 && (
-                                <img
-                                    src={`${url}${project.images[0]}`}
-                                    alt={project.title}
+                            {project.video && (
+                                <video
+                                    src={`${url}${project.video}`}
                                     className="portfolio-cover"
+                                    muted
+                                    loop
+                                    onMouseOver={(e) => e.target.play()}
+                                    onMouseOut={(e) => { e.target.pause(); e.target.currentTime = 0; }}
                                 />
                             )}
                             <h3>{project.title}</h3>
@@ -165,22 +168,18 @@ const Portfolio = () => {
                         <span className="domain-badge">{viewProject.category}</span>
 
                         <div className="media-gallery">
-                            {viewProject.videos && viewProject.videos.length > 0 && viewProject.videos.map((vid, idx) => (
-                                <div className="video-container" key={`vid-${idx}`}>
-                                    <video controls>
-                                        <source src={`${url}${vid}`} type="video/mp4" />
+                            <div className="active-media-container" style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '2rem' }}>
+                                {viewProject.video ? (
+                                    <video controls autoPlay muted key={viewProject.video} style={{ maxWidth: '100%', maxHeight: '80vh', width: 'auto', height: 'auto', borderRadius: '1.5rem', boxShadow: '0 40px 100px -20px rgba(0, 0, 0, 0.8)' }}>
+                                        <source src={`${url}${viewProject.video}`} type="video/mp4" />
                                         Your browser does not support the video tag.
                                     </video>
-                                </div>
-                            ))}
-
-                            {viewProject.images && viewProject.images.length > 0 && (
-                                <div className="image-grid">
-                                    {viewProject.images.map((img, idx) => (
-                                        <img key={idx} src={`${url}${img}`} alt={`${viewProject.title} ${idx + 1}`} />
-                                    ))}
-                                </div>
-                            )}
+                                ) : (
+                                    <div className="no-media-placeholder">
+                                        <p style={{ color: '#94a3b8' }}>No video demo available</p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <div

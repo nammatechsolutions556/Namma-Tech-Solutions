@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import api from "../../services/api";
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
@@ -14,10 +14,9 @@ const ManagePortfolio = () => {
         completed_date: ""
     });
 
-    const [images, setImages] = useState([]);
-    const [videos, setVideos] = useState([]);
-    const [existingImages, setExistingImages] = useState([]);
-    const [existingVideos, setExistingVideos] = useState([]);
+    const videoInputRef = useRef(null);
+    const [video, setVideo] = useState(null);
+    const [existingVideo, setExistingVideo] = useState(null);
     const [editingId, setEditingId] = useState(null);
 
     const fetchPortfolioProjects = async () => {
@@ -43,21 +42,8 @@ const ManagePortfolio = () => {
         formData.append("price", form.price);
         formData.append("completed_date", form.completed_date);
 
-        // Append new images
-        for (let i = 0; i < images.length; i++) {
-            formData.append("images", images[i]);
-        }
-
-        // Append new videos
-        for (let i = 0; i < videos.length; i++) {
-            formData.append("videos", videos[i]);
-        }
-
-        // Append existing media if editing
-        if (editingId) {
-            existingImages.forEach(img => formData.append("existingImages", img));
-            existingVideos.forEach(vid => formData.append("existingVideos", vid));
-        }
+        if (video) formData.append("video", video);
+        if (editingId && existingVideo) formData.append("existingVideo", existingVideo);
 
         try {
             if (editingId) {
@@ -70,10 +56,12 @@ const ManagePortfolio = () => {
         }
 
         setForm({ title: "", category: "", description: "", price: "", completed_date: "" });
-        setImages([]);
-        setVideos([]);
-        setExistingImages([]);
-        setExistingVideos([]);
+        setVideo(null);
+        setExistingVideo(null);
+        setEditingId(null);
+        if (videoInputRef.current) {
+            videoInputRef.current.value = "";
+        }
         setEditingId(null);
         fetchPortfolioProjects();
     };
@@ -86,8 +74,7 @@ const ManagePortfolio = () => {
             price: project.price || "",
             completed_date: project.completed_date ? project.completed_date.split('T')[0] : ""
         });
-        setExistingImages(project.images || []);
-        setExistingVideos(project.videos || []);
+        setExistingVideo(project.video || null);
         setEditingId(project._id);
     };
 
@@ -145,24 +132,13 @@ const ManagePortfolio = () => {
 
                 <div className="file-upload-section">
                     <div className="upload-group">
-                        <p>Current Images: {existingImages.length}</p>
-                        <label>Upload Images (Max 20):</label>
+                        <p>Current Video: {existingVideo ? "Yes" : "None"}</p>
+                        <label>Upload Video (Optional, Max 1):</label>
                         <input
                             type="file"
-                            multiple
-                            accept="image/*"
-                            onChange={(e) => setImages(Array.from(e.target.files).slice(0, 20))}
-                        />
-                    </div>
-
-                    <div className="upload-group">
-                        <p>Current Videos: {existingVideos.length}</p>
-                        <label>Upload Videos (Max 2):</label>
-                        <input
-                            type="file"
-                            multiple
                             accept="video/*"
-                            onChange={(e) => setVideos(Array.from(e.target.files).slice(0, 2))}
+                            ref={videoInputRef}
+                            onChange={(e) => setVideo(e.target.files[0])}
                         />
                     </div>
                 </div>

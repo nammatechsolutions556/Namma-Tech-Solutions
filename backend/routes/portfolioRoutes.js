@@ -10,14 +10,14 @@ router.get("/", getPortfolioProjects);
 router.post(
     "/",
     protectAdmin,
-    upload.fields([{ name: "images", maxCount: 20 }, { name: "videos", maxCount: 2 }]),
+    upload.fields([{ name: "video", maxCount: 1 }]),
     createPortfolioProject
 );
 
 router.put(
     "/:id",
     protectAdmin,
-    upload.fields([{ name: "images", maxCount: 20 }, { name: "videos", maxCount: 2 }]),
+    upload.fields([{ name: "video", maxCount: 1 }]),
     updatePortfolioProject
 );
 
