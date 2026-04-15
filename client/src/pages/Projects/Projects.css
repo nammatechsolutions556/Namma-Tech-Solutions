@@ -158,6 +158,43 @@
     opacity: 1;
 }
 
+.portfolio-cover {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #000;
+    margin-bottom: 1.5rem;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.html-description-preview {
+    color: #94a3b8;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3.2rem;
+}
+
+.html-description-preview * {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline;
+    font-size: inherit;
+    color: inherit;
+    line-height: inherit;
+}
+
 .project-card h3 {
     font-size: 1.75rem;
     font-weight: 800;

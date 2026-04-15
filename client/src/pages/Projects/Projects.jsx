@@ -111,7 +111,7 @@ const Projects = () => {
               />
             )}
             <h3>{project.title}</h3>
-            <p className="domain">{project.category}</p>
+            <span className="category-badge">{project.category}</span>
 
             <div
               className="html-description-preview"
