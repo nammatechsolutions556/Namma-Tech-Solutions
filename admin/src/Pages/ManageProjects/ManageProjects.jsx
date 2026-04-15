@@ -35,6 +35,12 @@ const ManageProjects = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Validation
+        if (!form.title || !form.category || !form.price || !form.description) {
+            alert("Please fill in all required fields (Title, Category, Price, and Description).");
+            return;
+        }
+
         const formData = new FormData();
         formData.append("title", form.title);
         formData.append("category", form.category);
@@ -62,20 +68,25 @@ const ManageProjects = () => {
         try {
             if (editingId) {
                 await api.put(`projects/${editingId}`, formData);
+                alert("Project updated successfully!");
             } else {
                 await api.post("projects", formData);
+                alert("Project added successfully!");
             }
+
+            // Only clear and refresh on success
+            setForm({ title: "", category: "", description: "", price: "" });
+            setImages([]);
+            setVideo(null);
+            setExistingImages([]);
+            setExistingVideo(null);
+            setEditingId(null);
+            fetchProjects();
         } catch (error) {
             console.error("Error saving project", error);
+            const errorMsg = error.response?.data?.message || "Failed to save project. Please check if you are logged in and try again.";
+            alert(`Error: ${errorMsg}`);
         }
-
-        setForm({ title: "", category: "", description: "", price: "" });
-        setImages([]);
-        setVideo(null);
-        setExistingImages([]);
-        setExistingVideo(null);
-        setEditingId(null);
-        fetchProjects();
     };
 
     const handleEdit = (project) => {
