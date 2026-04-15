@@ -156,13 +156,17 @@
 
 .full-html-description {
     line-height: 1.8;
-    color: #94a3b8;
+    color: #cbd5e1;
     font-size: 1.1rem;
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
     max-width: 100%;
     overflow-x: hidden;
+}
+
+.full-html-description * {
+    color: #cbd5e1 !important;
 }
 
 .action-card {
