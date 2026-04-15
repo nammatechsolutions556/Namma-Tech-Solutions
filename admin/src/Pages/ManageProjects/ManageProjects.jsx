@@ -62,6 +62,13 @@ const ManageProjects = () => {
             formData.append("video", video);
         }
 
+        // Check for base64 images in the description (bloat)
+        if (form.description.includes("data:image/") && form.description.includes(";base64,")) {
+            alert("Warning: The description contains embedded images which are too large for the portal. Please remove the images from the text editor and upload them using the 'Upload Images' button instead.");
+            setIsSubmitting(false);
+            return;
+        }
+
         // Append existing media if editing
         if (editingId) {
             existingImages.forEach(img => formData.append("existingImages", img));

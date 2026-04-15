@@ -13,8 +13,10 @@ const getProjects = async (req, res) => {
 
 // Create a new project
 const createProject = async (req, res) => {
-    console.log("[DEBUG] createProject reached. Body:", req.body);
-    console.log("[DEBUG] createProject reached. Files:", req.files ? Object.keys(req.files) : "None");
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] [DEBUG] createProject starting...`);
+    console.log(`[${timestamp}] [DEBUG] Body keys:`, Object.keys(req.body));
+    console.log(`[${timestamp}] [DEBUG] Files:`, req.files ? Object.keys(req.files) : "None");
 
     const { title, category, description, price } = req.body;
     try {
@@ -23,22 +25,30 @@ const createProject = async (req, res) => {
 
         if (req.files) {
             if (req.files.images) {
+                console.log(`[${timestamp}] [DEBUG] Processing ${req.files.images.length} images...`);
                 imageUrls = req.files.images.map(file => `/public/uploads/${file.filename}`);
             }
             if (req.files.video && req.files.video.length > 0) {
+                console.log(`[${timestamp}] [DEBUG] Processing video...`);
                 videoUrl = `/public/uploads/${req.files.video[0].filename}`;
             }
         }
 
-        console.log("[DEBUG] Inserting project into database...");
+        console.log(`[${timestamp}] [DEBUG] Attempting database INSERT...`);
+        // Start a timer for the query
+        const startQuery = Date.now();
+        
         const result = await pool.query(
             "INSERT INTO projects (title, category, description, price, images, video) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id AS _id, title, category, price, description, images, video",
             [title || "", category || "", description || "", price || "", imageUrls, videoUrl]
         );
-        console.log("[DEBUG] Project inserted successfully:", result.rows[0]);
+
+        const duration = Date.now() - startQuery;
+        console.log(`[${timestamp}] [DEBUG] Database INSERT successful in ${duration}ms`);
+        
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error("[ERROR] Failed to create project:", err);
+        console.error(`[${timestamp}] [ERROR] createProject failed:`, err);
         res.status(500).json({ message: "Server error creating project", error: err.message });
     }
 };
