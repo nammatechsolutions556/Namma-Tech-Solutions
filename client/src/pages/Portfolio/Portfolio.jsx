@@ -81,7 +81,11 @@ const Portfolio = () => {
                     <p style={{ textAlign: "center", color: "#9ca3af", gridColumn: "1 / -1" }}>No projects added yet.</p>
                 ) : (
                     filteredProjects.map((project) => (
-                        <div className="portfolio-card" key={project._id}>
+                        <div 
+                            className="portfolio-card" 
+                            key={project._id}
+                            onClick={() => handleViewDetails(project._id)}
+                        >
                             {project.video && (
                                 <video
                                     src={`${url}${project.video}`}
@@ -107,10 +111,16 @@ const Portfolio = () => {
                             )}
 
                             <div className="card-actions">
-                                <button className="view-details-btn" onClick={() => handleViewDetails(project._id)}>
+                                <button className="view-details-btn" onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleViewDetails(project._id);
+                                }}>
                                     View Details
                                 </button>
-                                <button className="request-btn" onClick={() => openRequestModal(project.title)}>
+                                <button className="request-btn" onClick={(e) => {
+                                    e.stopPropagation();
+                                    openRequestModal(project.title);
+                                }}>
                                     Request Similar
                                 </button>
                             </div>
