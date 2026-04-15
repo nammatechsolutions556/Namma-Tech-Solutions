@@ -54,11 +54,11 @@ const HomePage = () => {
       <section className="stats-section fade-in-section">
         <div className="stats-grid">
           <div className="stat-card">
-            <h3>50+</h3>
+            <h3>10+</h3>
             <p>Projects Delivered</p>
           </div>
           <div className="stat-card">
-            <h3>150+</h3>
+            <h3>50+</h3>
             <p>Happy Interns</p>
           </div>
           <div className="stat-card">
@@ -66,7 +66,7 @@ const HomePage = () => {
             <p>Client Satisfaction</p>
           </div>
           <div className="stat-card">
-            <h3>5+</h3>
+            <h3>1+</h3>
             <p>Years Experience</p>
           </div>
         </div>
@@ -262,7 +262,7 @@ const HomePage = () => {
           <div className="contact-item">
             <div className="contact-icon">✉️</div>
             <h4>Email</h4>
-            <p>support@nammatechsolutions.com</p>
+            <p>nammatechsolutions@gmail.com</p>
           </div>
           <div className="contact-item">
             <div className="contact-icon">📞</div>
@@ -272,7 +272,7 @@ const HomePage = () => {
           <div className="contact-item">
             <div className="contact-icon">📍</div>
             <h4>Location</h4>
-            <p>Bangalore, Karnataka, India</p>
+            <p>Mulbagal, Karnataka, India</p>
           </div>
         </div>
       </section>
