@@ -48,22 +48,25 @@ const ManagePortfolio = () => {
         try {
             if (editingId) {
                 await api.put(`portfolio/${editingId}`, formData);
+                alert("Portfolio project updated successfully!");
             } else {
                 await api.post("portfolio", formData);
+                alert("Portfolio project added successfully!");
             }
+
+            setForm({ title: "", category: "", description: "", price: "", completed_date: "" });
+            setVideo(null);
+            setExistingVideo(null);
+            setEditingId(null);
+            if (videoInputRef.current) {
+                videoInputRef.current.value = "";
+            }
+            fetchPortfolioProjects();
         } catch (error) {
             console.error("Error saving portfolio project", error);
+            const errorMsg = error.response?.data?.message || error.message || "Failed to save project. Please check network logs.";
+            alert(`Submission Error: ${errorMsg}`);
         }
-
-        setForm({ title: "", category: "", description: "", price: "", completed_date: "" });
-        setVideo(null);
-        setExistingVideo(null);
-        setEditingId(null);
-        if (videoInputRef.current) {
-            videoInputRef.current.value = "";
-        }
-        setEditingId(null);
-        fetchPortfolioProjects();
     };
 
     const handleEdit = (project) => {
