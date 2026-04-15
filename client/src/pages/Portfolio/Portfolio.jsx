@@ -92,8 +92,20 @@ const Portfolio = () => {
                                     className="portfolio-cover"
                                     muted
                                     loop
-                                    onMouseOver={(e) => e.target.play()}
-                                    onMouseOut={(e) => { e.target.pause(); e.target.currentTime = 0; }}
+                                    onMouseOver={(e) => {
+                                        const video = e.target;
+                                        if (video.readyState >= 2) {
+                                            const playPromise = video.play();
+                                            if (playPromise !== undefined) {
+                                                playPromise.catch(() => { /* Soft fail for interrupted playback */ });
+                                            }
+                                        }
+                                    }}
+                                    onMouseOut={(e) => {
+                                        const video = e.target;
+                                        video.pause();
+                                        video.currentTime = 0;
+                                    }}
                                 />
                             )}
                             <h3>{project.title}</h3>
