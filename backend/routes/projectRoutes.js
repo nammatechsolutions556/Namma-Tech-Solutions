@@ -1,9 +1,13 @@
 const express = require("express");
-const { getProjects, getProjectById, createProject, updateProject, deleteProject } = require("../controllers/projectController");
+const { getProjects, getProjectById, createProject, updateProject, deleteProject, testDBConnection } = require("../controllers/projectController");
 const { protectAdmin } = require("../middlewares/authMiddleware");
 const upload = require("../middlewares/uploadMiddleware");
 
 const router = express.Router();
+
+// Test routes for diagnosis
+router.get("/test-connectivity", (req, res) => res.json({ message: "API Connectivity OK" }));
+router.get("/test-db", testDBConnection);
 
 // Public route to get all projects natively
 router.get("/", getProjects);
