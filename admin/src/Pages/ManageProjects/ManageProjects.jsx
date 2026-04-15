@@ -18,6 +18,7 @@ const ManageProjects = () => {
     const [existingImages, setExistingImages] = useState([]);
     const [existingVideo, setExistingVideo] = useState(null);
     const [editingId, setEditingId] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const fetchProjects = async () => {
         try {
@@ -34,12 +35,16 @@ const ManageProjects = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Submit button clicked, starting validation...");
 
         // Validation
         if (!form.title || !form.category || !form.price || !form.description) {
             alert("Please fill in all required fields (Title, Category, Price, and Description).");
             return;
         }
+
+        setIsSubmitting(true);
+        console.log("Validation passed, constructing FormData...");
 
         const formData = new FormData();
         formData.append("title", form.title);
@@ -66,6 +71,7 @@ const ManageProjects = () => {
         }
 
         try {
+            console.log("Sending request to backend...");
             if (editingId) {
                 await api.put(`projects/${editingId}`, formData);
                 alert("Project updated successfully!");
@@ -84,8 +90,10 @@ const ManageProjects = () => {
             fetchProjects();
         } catch (error) {
             console.error("Error saving project", error);
-            const errorMsg = error.response?.data?.message || "Failed to save project. Please check if you are logged in and try again.";
-            alert(`Error: ${errorMsg}`);
+            const errorMsg = error.response?.data?.message || error.message || "Failed to save project. Please check if you are logged in and try again.";
+            alert(`Submission Error: ${errorMsg}`);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -161,8 +169,8 @@ const ManageProjects = () => {
                     />
                 </div>
 
-                <button type="submit">
-                    {editingId ? "Update Project" : "Add Project"}
+                <button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Processing..." : (editingId ? "Update Project" : "Add Project")}
                 </button>
             </form>
 
