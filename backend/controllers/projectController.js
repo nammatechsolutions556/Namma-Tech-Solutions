@@ -5,10 +5,19 @@ const testDBConnection = async (req, res) => {
     try {
         console.log("[DEBUG] Testing DB connection...");
         const result = await pool.query("SELECT NOW()");
-        res.json({ message: "DB Connectivity OK", time: result.rows[0].now });
+        const sslEnabled = pool.options.ssl ? "Enabled" : "Disabled";
+        res.json({ 
+            message: "DB Connectivity OK", 
+            time: result.rows[0].now,
+            ssl: sslEnabled
+        });
     } catch (err) {
         console.error("[ERROR] DB health check failed:", err);
-        res.status(500).json({ message: "DB Connectivity Failed", error: err.message });
+        res.status(500).json({ 
+            message: "DB Connectivity Failed", 
+            error: err.message,
+            hint: "Check if DB host is correct and SSL is enabled/disabled correctly for the environment."
+        });
     }
 };
 
@@ -39,36 +48,44 @@ const createProject = async (req, res) => {
         let videoUrl = null;
 
         if (req.files) {
+            console.log(`[${timestamp}] [DEBUG] Files received:`, Object.keys(req.files));
             if (req.files.images) {
                 console.log(`[${timestamp}] [DEBUG] Processing ${req.files.images.length} images...`);
                 imageUrls = req.files.images.map(file => `/public/uploads/${file.filename}`);
             }
             if (req.files.video && req.files.video.length > 0) {
-                console.log(`[${timestamp}] [DEBUG] Mapping video...`);
+                console.log(`[${timestamp}] [DEBUG] Mapping video: ${req.files.video[0].originalname}`);
                 videoUrl = `/public/uploads/${req.files.video[0].filename}`;
             }
+        } else {
+            console.log(`[${timestamp}] [DEBUG] No files received in request.`);
         }
 
-        console.log(`[${timestamp}] [DEBUG] File processing complete. Executing DB INSERT...`);
+        console.log(`[${timestamp}] [DEBUG] Executing DB INSERT for project: "${title.trim()}"`);
         
-        // Use a timeout race to prevent hanging indefinitely
+        // Use a longer timeout (30s) for cloud databases
         const queryPromise = pool.query(
             "INSERT INTO projects (title, category, description, price, images, video) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id AS _id, title, category, price, description, images, video",
             [title.trim(), category.trim(), description.trim(), price ? price.trim() : "", imageUrls, videoUrl]
         );
 
         const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Database query timeout")), 15000)
+            setTimeout(() => reject(new Error("Database query timeout (30s)")), 30000)
         );
 
         const result = await Promise.race([queryPromise, timeoutPromise]);
         
-        console.log(`[${timestamp}] [DEBUG] DB INSERT successful.`);
+        console.log(`[${timestamp}] [DEBUG] DB INSERT successful. New ID: ${result.rows[0]._id}`);
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(`[${timestamp}] [ERROR] createProject failed:`, err.message);
-        const status = err.message === "Database query timeout" ? 504 : 500;
-        res.status(status).json({ message: "Failed to create project", error: err.message });
+        console.error(`[${timestamp}] [ERROR] createProject failed at step: ${err.message}`);
+        console.error(`[${timestamp}] [ERROR_DETAILS]`, err);
+        const status = err.message.includes("timeout") ? 504 : 500;
+        res.status(status).json({ 
+            message: "Failed to create project", 
+            error: err.message,
+            stack: process.env.NODE_ENV === 'development' ? err.stack : undefined 
+        });
     }
 };
 

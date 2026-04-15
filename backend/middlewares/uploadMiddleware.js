@@ -4,13 +4,19 @@ const fs = require("fs");
 
 // Ensure upload directory exists
 const uploadDir = path.join(__dirname, "../public/uploads");
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
+try {
+    if (!fs.existsSync(uploadDir)) {
+        console.log(`[DEBUG] Creating upload directory: ${uploadDir}`);
+        fs.mkdirSync(uploadDir, { recursive: true });
+    }
+} catch (err) {
+    console.error(`[ERROR] Failed to create upload directory: ${err.message}`);
 }
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log(`[${new Date().toISOString()}] [DEBUG] Multer: Writing file to disk: ${file.originalname}`);
+        const timestamp = new Date().toISOString();
+        console.log(`[${timestamp}] [DEBUG] Multer: Writing file to disk: ${file.originalname}`);
         cb(null, uploadDir);
     },
     filename: function (req, file, cb) {
