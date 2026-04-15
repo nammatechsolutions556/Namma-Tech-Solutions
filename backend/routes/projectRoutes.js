@@ -17,14 +17,14 @@ router.get("/:id", getProjectById);
 router.post(
     "/",
     protectAdmin,
-    upload.fields([{ name: "images", maxCount: 10 }, { name: "video", maxCount: 1 }]),
+    upload.fields([{ name: "video", maxCount: 1 }]),
     createProject
 );
 
 router.put(
     "/:id",
     protectAdmin,
-    upload.fields([{ name: "images", maxCount: 10 }, { name: "video", maxCount: 1 }]),
+    upload.fields([{ name: "video", maxCount: 1 }]),
     updateProject
 );
 

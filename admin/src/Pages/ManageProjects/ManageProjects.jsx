@@ -13,9 +13,7 @@ const ManageProjects = () => {
         price: "",
     });
 
-    const [images, setImages] = useState([]);
     const [video, setVideo] = useState(null);
-    const [existingImages, setExistingImages] = useState([]);
     const [existingVideo, setExistingVideo] = useState(null);
     const [editingId, setEditingId] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,11 +50,6 @@ const ManageProjects = () => {
         formData.append("description", form.description);
         formData.append("price", form.price);
 
-        // Append new images
-        for (let i = 0; i < images.length; i++) {
-            formData.append("images", images[i]);
-        }
-
         // Append new video
         if (video) {
             formData.append("video", video);
@@ -71,7 +64,6 @@ const ManageProjects = () => {
 
         // Append existing media if editing
         if (editingId) {
-            existingImages.forEach(img => formData.append("existingImages", img));
             if (existingVideo) {
                 formData.append("existingVideo", existingVideo);
             }
@@ -89,9 +81,7 @@ const ManageProjects = () => {
 
             // Only clear and refresh on success
             setForm({ title: "", category: "", description: "", price: "" });
-            setImages([]);
             setVideo(null);
-            setExistingImages([]);
             setExistingVideo(null);
             setEditingId(null);
             fetchProjects();
@@ -111,7 +101,6 @@ const ManageProjects = () => {
             description: project.description,
             price: project.price
         });
-        setExistingImages(project.images || []);
         setExistingVideo(project.video || null);
         setEditingId(project._id);
     };
@@ -158,15 +147,6 @@ const ManageProjects = () => {
                 </div>
 
                 <div className="file-upload-section">
-                    <p>Current Images: {existingImages.length}</p>
-                    <label>Upload Images (Max 10):</label>
-                    <input
-                        type="file"
-                        multiple
-                        accept="image/*"
-                        onChange={(e) => setImages(Array.from(e.target.files).slice(0, 10))}
-                    />
-
                     <p>Current Video: {existingVideo ? "Yes" : "None"}</p>
                     <label>Upload Video (Optional, Max 1):</label>
                     <input

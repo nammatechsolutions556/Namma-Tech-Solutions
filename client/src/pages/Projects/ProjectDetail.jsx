@@ -20,9 +20,7 @@ const ProjectDetail = () => {
             try {
                 const response = await axios.get(`${url}/api/projects/${id}`);
                 setProject(response.data);
-                if (response.data.images && response.data.images.length > 0) {
-                    setActiveMedia({ type: 'image', url: response.data.images[0] });
-                } else if (response.data.video) {
+                if (response.data.video) {
                     setActiveMedia({ type: 'video', url: response.data.video });
                 }
             } catch (error) {
@@ -68,32 +66,13 @@ const ProjectDetail = () => {
                 <div className="detail-main-content">
                     <div className="media-showcase">
                         <div className="active-media-container">
-                            {activeMedia?.type === 'image' ? (
-                                <img src={`${url}${activeMedia.url}`} alt={project.title} />
-                            ) : activeMedia?.type === 'video' ? (
+                            {activeMedia?.type === 'video' ? (
                                 <video controls autoPlay muted key={activeMedia.url}>
                                     <source src={`${url}${activeMedia.url}`} type="video/mp4" />
                                 </video>
-                            ) : null}
-                        </div>
-                        
-                        <div className="media-thumbnails">
-                            {project.images?.map((img, idx) => (
-                                <div 
-                                    key={`img-${idx}`} 
-                                    className={`thumb ${activeMedia?.url === img ? 'active' : ''}`}
-                                    onClick={() => setActiveMedia({ type: 'image', url: img })}
-                                >
-                                    <img src={`${url}${img}`} alt={`Thumbnail ${idx + 1}`} />
-                                </div>
-                            ))}
-                            {project.video && (
-                                <div 
-                                    className={`thumb video-thumb ${activeMedia?.url === project.video ? 'active' : ''}`}
-                                    onClick={() => setActiveMedia({ type: 'video', url: project.video })}
-                                >
-                                    <div className="play-icon">▶</div>
-                                    <span className="video-label">Watch Demo</span>
+                            ) : (
+                                <div className="no-media-placeholder">
+                                    <p>No video demo available</p>
                                 </div>
                             )}
                         </div>

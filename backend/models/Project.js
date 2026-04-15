@@ -11,7 +11,7 @@ const createProjectsTable = async () => {
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     `;
-    const alterQuery = `ALTER TABLE projects ADD COLUMN IF NOT EXISTS images TEXT[], ADD COLUMN IF NOT EXISTS video VARCHAR(255);`;
+    const alterQuery = `ALTER TABLE projects DROP COLUMN IF EXISTS images, ADD COLUMN IF NOT EXISTS video VARCHAR(255);`;
 
     try {
         await pool.query(query);

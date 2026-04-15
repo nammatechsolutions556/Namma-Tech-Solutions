@@ -100,11 +100,14 @@ const Projects = () => {
             key={project._id || project.id}
             onClick={() => handleCardClick(project._id || project.id)}
           >
-            {project.images && project.images.length > 0 && (
-              <img
-                src={`${url}${project.images[0]}`}
-                alt={project.title}
+            {project.video && (
+              <video
+                src={`${url}${project.video}`}
                 className="portfolio-cover"
+                muted
+                loop
+                onMouseOver={(e) => e.target.play()}
+                onMouseOut={(e) => { e.target.pause(); e.target.currentTime = 0; }}
               />
             )}
             <h3>{project.title}</h3>

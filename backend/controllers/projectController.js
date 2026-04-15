@@ -24,7 +24,7 @@ const testDBConnection = async (req, res) => {
 // Get all projects
 const getProjects = async (req, res) => {
     try {
-        const result = await pool.query("SELECT id AS _id, title, category, price, description, images, video FROM projects ORDER BY created_at DESC");
+        const result = await pool.query("SELECT id AS _id, title, category, price, description, video FROM projects ORDER BY created_at DESC");
         res.status(200).json(result.rows);
     } catch (err) {
         console.error(err);
@@ -44,15 +44,10 @@ const createProject = async (req, res) => {
         return res.status(400).json({ message: "Title, Category, and Description are required." });
     }
     try {
-        let imageUrls = [];
         let videoUrl = null;
 
         if (req.files) {
             console.log(`[${timestamp}] [DEBUG] Files received:`, Object.keys(req.files));
-            if (req.files.images) {
-                console.log(`[${timestamp}] [DEBUG] Processing ${req.files.images.length} images...`);
-                imageUrls = req.files.images.map(file => `/public/uploads/${file.filename}`);
-            }
             if (req.files.video && req.files.video.length > 0) {
                 console.log(`[${timestamp}] [DEBUG] Mapping video: ${req.files.video[0].originalname}`);
                 videoUrl = `/public/uploads/${req.files.video[0].filename}`;
@@ -65,8 +60,8 @@ const createProject = async (req, res) => {
         
         // Use a longer timeout (30s) for cloud databases
         const queryPromise = pool.query(
-            "INSERT INTO projects (title, category, description, price, images, video) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id AS _id, title, category, price, description, images, video",
-            [title.trim(), category.trim(), description.trim(), price ? price.trim() : "", imageUrls, videoUrl]
+            "INSERT INTO projects (title, category, description, price, video) VALUES ($1, $2, $3, $4, $5) RETURNING id AS _id, title, category, price, description, video",
+            [title.trim(), category.trim(), description.trim(), price ? price.trim() : "", videoUrl]
         );
 
         const timeoutPromise = new Promise((_, reject) =>
@@ -96,30 +91,19 @@ const updateProject = async (req, res) => {
     
     const { title, category, description, price } = req.body;
 
-    // Parse existing images that were kept
-    let existingImages = req.body.existingImages || [];
-    if (typeof existingImages === 'string') {
-        existingImages = [existingImages];
-    }
-
     try {
-        let imageUrls = [...existingImages];
         let videoUrl = req.body.existingVideo || null;
 
         // Add newly uploaded files
         if (req.files) {
-            if (req.files.images) {
-                const newImageUrls = req.files.images.map(file => `/public/uploads/${file.filename}`);
-                imageUrls = [...imageUrls, ...newImageUrls].slice(0, 10); // Cap at 10
-            }
             if (req.files.video && req.files.video.length > 0) {
                 videoUrl = `/public/uploads/${req.files.video[0].filename}`;
             }
         }
 
         const result = await pool.query(
-            "UPDATE projects SET title = $1, category = $2, description = $3, price = $4, images = $5, video = $6 WHERE id = $7 RETURNING id AS _id, title, category, price, description, images, video",
-            [title, category, description, price, imageUrls, videoUrl, id]
+            "UPDATE projects SET title = $1, category = $2, description = $3, price = $4, video = $5 WHERE id = $6 RETURNING id AS _id, title, category, price, description, video",
+            [title, category, description, price, videoUrl, id]
         );
 
         if (result.rows.length === 0) {
@@ -155,7 +139,7 @@ const getProjectById = async (req, res) => {
     const { id } = req.params;
     try {
         const result = await pool.query(
-            "SELECT id AS _id, title, category, price, description, images, video FROM projects WHERE id = $1",
+            "SELECT id AS _id, title, category, price, description, video FROM projects WHERE id = $1",
             [id]
         );
 
