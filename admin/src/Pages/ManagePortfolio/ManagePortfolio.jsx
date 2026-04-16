@@ -17,6 +17,7 @@ const ManagePortfolio = () => {
     const videoInputRef = useRef(null);
     const [video, setVideo] = useState(null);
     const [existingVideo, setExistingVideo] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [editingId, setEditingId] = useState(null);
 
     const fetchPortfolioProjects = async () => {
@@ -34,6 +35,15 @@ const ManagePortfolio = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Portfolio submit button clicked...");
+
+        if (!form.title || !form.category || !form.description) {
+            alert("Please fill in all required fields (Title, Category, and Description).");
+            return;
+        }
+
+        setIsSubmitting(true);
+        console.log("Validation passed, constructing FormData for portfolio...");
 
         const formData = new FormData();
         formData.append("title", form.title);
@@ -46,6 +56,7 @@ const ManagePortfolio = () => {
         if (editingId && existingVideo) formData.append("existingVideo", existingVideo);
 
         try {
+            console.log("Sending portfolio request to backend...");
             if (editingId) {
                 await api.put(`portfolio/${editingId}`, formData);
                 alert("Portfolio project updated successfully!");
@@ -66,6 +77,8 @@ const ManagePortfolio = () => {
             console.error("Error saving portfolio project", error);
             const errorMsg = error.response?.data?.message || error.message || "Failed to save project. Please check network logs.";
             alert(`Submission Error: ${errorMsg}`);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -146,8 +159,8 @@ const ManagePortfolio = () => {
                     </div>
                 </div>
 
-                <button type="submit" className="submit-btn">
-                    {editingId ? "Update Portfolio Project" : "Add Portfolio Project"}
+                <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                    {isSubmitting ? "Processing..." : (editingId ? "Update Portfolio Project" : "Add Portfolio Project")}
                 </button>
             </form>
 
