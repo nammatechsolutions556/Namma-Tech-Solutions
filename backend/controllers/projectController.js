@@ -37,28 +37,18 @@ const createProject = async (req, res) => {
 
         console.log(`[${timestamp}] [DEBUG] Executing DB INSERT for project: "${title.trim()}"`);
         
-        // Use a longer timeout (30s) for cloud databases
-        const queryPromise = pool.query(
+        const result = await pool.query(
             "INSERT INTO projects (title, category, description, price, video) VALUES ($1, $2, $3, $4, $5) RETURNING id AS _id, title, category, price, description, video",
             [title.trim(), category.trim(), description.trim(), price ? price.trim() : "", videoUrl]
         );
-
-        const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Database query timeout (30s)")), 30000)
-        );
-
-        const result = await Promise.race([queryPromise, timeoutPromise]);
         
         console.log(`[${timestamp}] [DEBUG] DB INSERT successful. New ID: ${result.rows[0]._id}`);
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(`[${timestamp}] [ERROR] createProject failed at step: ${err.message}`);
-        console.error(`[${timestamp}] [ERROR_DETAILS]`, err);
-        const status = err.message.includes("timeout") ? 504 : 500;
-        res.status(status).json({ 
+        console.error(`[${timestamp}] [ERROR] createProject failed: ${err.message}`);
+        res.status(500).json({ 
             message: "Failed to create project", 
-            error: err.message,
-            stack: process.env.NODE_ENV === 'development' ? err.stack : undefined 
+            error: err.message
         });
     }
 };
