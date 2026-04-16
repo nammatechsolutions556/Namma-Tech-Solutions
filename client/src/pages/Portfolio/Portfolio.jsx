@@ -88,7 +88,7 @@ const Portfolio = () => {
                         >
                             {project.video && (
                                 <video
-                                    src={project.video.startsWith('http') ? project.video : `${url}${project.video}`}
+                                    src={project.video.startsWith('http') || project.video.startsWith('//') || project.video.includes('cloudinary.com') ? project.video : `${url}${project.video}`}
                                     className="portfolio-cover"
                                     muted
                                     loop

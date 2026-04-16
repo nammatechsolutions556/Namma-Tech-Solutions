@@ -68,7 +68,7 @@ const ProjectDetail = () => {
                         <div className="active-media-container">
                             {activeMedia?.type === 'video' ? (
                                 <video controls autoPlay muted key={activeMedia.url}>
-                                    <source src={activeMedia.url.startsWith('http') ? activeMedia.url : `${url}${activeMedia.url}`} type="video/mp4" />
+                                    <source src={activeMedia.url.startsWith('http') || activeMedia.url.startsWith('//') || activeMedia.url.includes('cloudinary.com') ? activeMedia.url : `${url}${activeMedia.url}`} type="video/mp4" />
                                 </video>
                             ) : (
                                 <div className="no-media-placeholder">
