@@ -1,6 +1,7 @@
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { storage: cloudinaryStorage } = require("../config/cloudinary");
 
 // Ensure upload directory exists
 const uploadDir = path.join(__dirname, "../public/uploads");
@@ -53,4 +54,15 @@ const upload = multer({
     }
 });
 
-module.exports = upload;
+const cloudinaryUpload = multer({
+    storage: cloudinaryStorage,
+    fileFilter: fileFilter,
+    limits: {
+        fileSize: 500 * 1024 * 1024 // 500MB limit to accommodate videos
+    }
+});
+
+module.exports = {
+    upload,
+    cloudinaryUpload
+};

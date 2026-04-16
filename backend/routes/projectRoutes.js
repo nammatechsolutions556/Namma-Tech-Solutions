@@ -1,7 +1,7 @@
 const express = require("express");
 const { getProjects, getProjectById, createProject, updateProject, deleteProject } = require("../controllers/projectController");
 const { protectAdmin } = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/uploadMiddleware");
+const { cloudinaryUpload: upload } = require("../middlewares/uploadMiddleware");
 
 const router = express.Router();
 

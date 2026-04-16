@@ -29,7 +29,7 @@ const createProject = async (req, res) => {
             console.log(`[${timestamp}] [DEBUG] Files received:`, Object.keys(req.files));
             if (req.files.video && req.files.video.length > 0) {
                 console.log(`[${timestamp}] [DEBUG] Mapping video: ${req.files.video[0].originalname}`);
-                videoUrl = `/public/uploads/${req.files.video[0].filename}`;
+                videoUrl = req.files.video[0].path;
             }
         } else {
             console.log(`[${timestamp}] [DEBUG] No files received in request.`);
@@ -76,7 +76,7 @@ const updateProject = async (req, res) => {
         // Add newly uploaded files
         if (req.files) {
             if (req.files.video && req.files.video.length > 0) {
-                videoUrl = `/public/uploads/${req.files.video[0].filename}`;
+                videoUrl = req.files.video[0].path;
             }
         }
 

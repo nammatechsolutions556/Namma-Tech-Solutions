@@ -18,7 +18,7 @@ const createPortfolioProject = async (req, res) => {
         let videoUrl = null;
 
         if (req.files && req.files.video && req.files.video.length > 0) {
-            videoUrl = `/public/uploads/${req.files.video[0].filename}`;
+            videoUrl = req.files.video[0].path;
         }
 
         const query = `
@@ -45,7 +45,7 @@ const updatePortfolioProject = async (req, res) => {
 
     try {
         if (req.files && req.files.video && req.files.video.length > 0) {
-            videoUrl = `/public/uploads/${req.files.video[0].filename}`;
+            videoUrl = req.files.video[0].path;
         }
 
         const query = `

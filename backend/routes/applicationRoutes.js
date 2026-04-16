@@ -2,7 +2,7 @@ const express = require("express");
 const { getApplications, getClientApplications, createApplication, updateApplicationStatus, deleteApplication } = require("../controllers/applicationController");
 const { protectAdmin } = require("../middlewares/authMiddleware");
 
-const upload = require("../middlewares/uploadMiddleware");
+const { upload } = require("../middlewares/uploadMiddleware");
 const router = express.Router();
 
 // Public route to submit an internship application with resume

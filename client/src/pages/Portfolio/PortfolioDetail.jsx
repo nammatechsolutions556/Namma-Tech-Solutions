@@ -70,7 +70,7 @@ const PortfolioDetail = () => {
                         <div className="active-media-container">
                             {activeMedia?.type === 'video' ? (
                                 <video controls autoPlay muted key={activeMedia.url}>
-                                    <source src={`${url}${activeMedia.url}`} type="video/mp4" />
+                                    <source src={activeMedia.url.startsWith('http') ? activeMedia.url : `${url}${activeMedia.url}`} type="video/mp4" />
                                 </video>
                             ) : (
                                 <div className="no-media-placeholder">

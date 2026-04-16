@@ -1,7 +1,7 @@
 const express = require("express");
 const { getPortfolioProjects, getPortfolioProjectById, createPortfolioProject, updatePortfolioProject, deletePortfolioProject } = require("../controllers/portfolioController");
 const { protectAdmin } = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/uploadMiddleware");
+const { cloudinaryUpload: upload } = require("../middlewares/uploadMiddleware");
 
 const router = express.Router();
 
