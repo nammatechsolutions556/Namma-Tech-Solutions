@@ -18,6 +18,7 @@ const ManageProjects = () => {
     const [existingVideo, setExistingVideo] = useState(null);
     const [editingId, setEditingId] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
 
     const fetchProjects = async () => {
         try {
@@ -43,6 +44,7 @@ const ManageProjects = () => {
         }
 
         setIsSubmitting(true);
+        setUploadProgress(0);
         console.log("Validation passed, constructing FormData...");
 
         const formData = new FormData();
@@ -72,11 +74,22 @@ const ManageProjects = () => {
 
         try {
             console.log("Sending request to backend...");
+
+            const axiosConfig = {
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.total) {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setUploadProgress(percentCompleted);
+                        console.log(`Upload Progress: ${percentCompleted}%`);
+                    }
+                }
+            };
+
             if (editingId) {
-                await api.put(`projects/${editingId}`, formData);
+                await api.put(`projects/${editingId}`, formData, axiosConfig);
                 alert("Project updated successfully!");
             } else {
-                await api.post("projects", formData);
+                await api.post("projects", formData, axiosConfig);
                 alert("Project added successfully!");
             }
 
@@ -95,6 +108,7 @@ const ManageProjects = () => {
             alert(`Submission Error: ${errorMsg}`);
         } finally {
             setIsSubmitting(false);
+            setUploadProgress(0);
         }
     };
 
@@ -163,7 +177,9 @@ const ManageProjects = () => {
 
                 <div className="form-actions" style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
                     <button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? "Processing..." : (editingId ? "Update Project" : "Add Project")}
+                        {isSubmitting 
+                            ? (uploadProgress > 0 ? `Processing (${uploadProgress}%)...` : "Processing...") 
+                            : (editingId ? "Update Project" : "Add Project")}
                     </button>
 
                 </div>

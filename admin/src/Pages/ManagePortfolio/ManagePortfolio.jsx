@@ -18,6 +18,7 @@ const ManagePortfolio = () => {
     const [video, setVideo] = useState(null);
     const [existingVideo, setExistingVideo] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [uploadProgress, setUploadProgress] = useState(0);
     const [editingId, setEditingId] = useState(null);
 
     const fetchPortfolioProjects = async () => {
@@ -43,6 +44,7 @@ const ManagePortfolio = () => {
         }
 
         setIsSubmitting(true);
+        setUploadProgress(0);
         console.log("Validation passed, constructing FormData for portfolio...");
 
         const formData = new FormData();
@@ -57,11 +59,22 @@ const ManagePortfolio = () => {
 
         try {
             console.log("Sending portfolio request to backend...");
+
+            const axiosConfig = {
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.total) {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setUploadProgress(percentCompleted);
+                        console.log(`Portfolio Upload Progress: ${percentCompleted}%`);
+                    }
+                }
+            };
+
             if (editingId) {
-                await api.put(`portfolio/${editingId}`, formData);
+                await api.put(`portfolio/${editingId}`, formData, axiosConfig);
                 alert("Portfolio project updated successfully!");
             } else {
-                await api.post("portfolio", formData);
+                await api.post("portfolio", formData, axiosConfig);
                 alert("Portfolio project added successfully!");
             }
 
@@ -79,6 +92,7 @@ const ManagePortfolio = () => {
             alert(`Submission Error: ${errorMsg}`);
         } finally {
             setIsSubmitting(false);
+            setUploadProgress(0);
         }
     };
 
@@ -160,7 +174,9 @@ const ManagePortfolio = () => {
                 </div>
 
                 <button type="submit" className="submit-btn" disabled={isSubmitting}>
-                    {isSubmitting ? "Processing..." : (editingId ? "Update Portfolio Project" : "Add Portfolio Project")}
+                    {isSubmitting 
+                        ? (uploadProgress > 0 ? `Processing (${uploadProgress}%)...` : "Processing...") 
+                        : (editingId ? "Update Portfolio Project" : "Add Portfolio Project")}
                 </button>
             </form>
 
