@@ -2,14 +2,13 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 require('dotenv').config();
 
-// Configure Cloudinary explicitly from environment URL
-if (process.env.CLOUDINARY_URL) {
-  cloudinary.config({
-    cloudinary_url: process.env.CLOUDINARY_URL
-  });
-} else {
-  console.error("[ERROR] CLOUDINARY_URL is not defined in environment variables");
-}
+// Configure Cloudinary explicitly from environment URL components
+// Format: cloudinary://api_key:api_secret@cloud_name
+cloudinary.config({
+  cloud_name: 'docbwdkzs',
+  api_key: '996795799611522',
+  api_secret: 'OFTnEdW_3CJL7DI3XhEhvMi46MA'
+});
 
 // Configure Storage
 const storage = new CloudinaryStorage({
