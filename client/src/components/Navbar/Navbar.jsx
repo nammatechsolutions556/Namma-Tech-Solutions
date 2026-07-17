@@ -98,9 +98,7 @@ const Navbar = () => {
             <Link to="/" className="nav-item">Home</Link>
             <Link to="/about" className="nav-item">About</Link>
             <Link to="/services" className="nav-item">Services</Link>
-            <Link to="/projects" className="nav-item">Projects</Link>
             <Link to="/internships" className="nav-item">Internships</Link>
-            <Link to="/portfolio" className="nav-item">Portfolio</Link>
             <Link to="/contact" className="nav-item">Contact</Link>
           </div>
 
@@ -141,9 +139,7 @@ const Navbar = () => {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <Link to="/about" onClick={closeMenu}>About</Link>
           <Link to="/services" onClick={closeMenu}>Services</Link>
-          <Link to="/projects" onClick={closeMenu}>Projects</Link>
           <Link to="/internships" onClick={closeMenu}>Internships</Link>
-          <Link to="/portfolio" onClick={closeMenu}>Portfolio</Link>
           <Link to="/contact" onClick={closeMenu}>Contact</Link>
           
           <div className="mobile-menu-divider"></div>
@@ -171,3 +167,31 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+/*
+desktop navbar list
+<div className="nav-links">
+            <Link to="/" className="nav-item">Home</Link>
+            <Link to="/about" className="nav-item">About</Link>
+            <Link to="/services" className="nav-item">Services</Link>
+            <Link to="/projects" className="nav-item">Projects</Link>
+            <Link to="/internships" className="nav-item">Internships</Link>
+            <Link to="/portfolio" className="nav-item">Portfolio</Link>
+            <Link to="/contact" className="nav-item">Contact</Link>
+          </div>
+
+
+           mobile view 
+      {menuOpen && (
+        <div className="mobile-menu">
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/about" onClick={closeMenu}>About</Link>
+          <Link to="/services" onClick={closeMenu}>Services</Link>
+          <Link to="/projects" onClick={closeMenu}>Projects</Link>
+          <Link to="/internships" onClick={closeMenu}>Internships</Link>
+          <Link to="/portfolio" onClick={closeMenu}>Portfolio</Link>
+          <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          
+          <div className="mobile-menu-divider"></div>
+
+
