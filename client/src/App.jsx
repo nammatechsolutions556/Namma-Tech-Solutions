@@ -34,12 +34,8 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/about' element={<About />} />
         <Route path='/services' element={<Services />} />
-        <Route path='/projects' element={<Projects />} />
-        <Route path='/projects/:id' element={<ProjectDetail />} />
         <Route path='/internships' element={<Internships />} />
         <Route path='/internships/:id' element={<InternshipDetail />} />
-        <Route path='/portfolio' element={<Portfolio />} />
-        <Route path='/portfolio/:id' element={<PortfolioDetail />} />
         <Route path='/client-dashboard' element={<ClientDashboard />} />
         <Route path='/verify-certificate/:referenceNumber' element={<VerifyCertificate />} />
 
@@ -51,3 +47,11 @@ function App() {
 }
 
 export default App
+
+/*
+        <Route path='/projects' element={<Projects />} />
+        <Route path='/projects/:id' element={<ProjectDetail />} />
+                <Route path='/portfolio' element={<Portfolio />} />
+        <Route path='/portfolio/:id' element={<PortfolioDetail />} />
+*/
+        
