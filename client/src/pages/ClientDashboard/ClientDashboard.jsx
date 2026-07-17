@@ -82,24 +82,24 @@ const ClientDashboard = () => {
         <div className="client-dashboard-container">
             {/* Sidebar */}
             <aside className="dashboard-sidebar">
-                <button
+                {/* <button
                     className={`sidebar-btn ${activeTab === "projects" ? "active" : ""}`}
                     onClick={() => setActiveTab("projects")}
                 >
                     My Projects
-                </button>
+                </button> */}
                 <button
                     className={`sidebar-btn ${activeTab === "internships" ? "active" : ""}`}
                     onClick={() => setActiveTab("internships")}
                 >
                     My Internships
                 </button>
-                <button
+                {/* <button
                     className={`sidebar-btn ${activeTab === "certificates" ? "active" : ""}`}
                     onClick={() => setActiveTab("certificates")}
                 >
                     My Certificates
-                </button>
+                </button> */}
             </aside>
 
             {/* Main Content */}
