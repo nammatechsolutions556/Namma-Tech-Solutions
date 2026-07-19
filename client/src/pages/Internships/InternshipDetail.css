@@ -1,4 +1,4 @@
-.internship-detail-page {
+/* .internship-detail-page {
     min-height: 100vh;
     padding: 8rem 2rem 4rem;
     background: radial-gradient(circle at top left, #1f2937, #020617);
@@ -100,6 +100,525 @@
     padding: 2rem;
     background: rgba(15, 23, 42, 0.4);
     width: 90%;
+    max-width: 50vw;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: visible;
+    word-break: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+}
+
+.full-description__item {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.full-description__item > * {
+    margin: 0;
+    max-width: 100%;
+}
+
+/* Force whole-word wrapping even if HTML carries inline break styles */
+.full-description,
+.full-description * {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+}
+
+.full-description img,
+.full-description video,
+.full-description iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.full-description table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.full-description pre,
+.full-description code {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre-wrap;
+}
+
+.certificate-info {
+    background: rgba(15, 23, 42, 0.4);
+    padding: 2.5rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.certificate-info h3 {
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.2rem, 2vw + 0.5rem, 1.5rem);
+    color: #f8fafc;
+}
+
+.certificate-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.certificate-info li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+    color: #94a3b8;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+}
+
+.certificate-info li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+/* Sidebar Styling */
+.action-sidebar .sticky-card {
+    position: sticky;
+    top: 120px;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sticky-card h3 {
+    font-size: clamp(1.35rem, 2vw + 0.5rem, 1.75rem);
+    margin-bottom: 1rem;
+    color: #f8fafc;
+}
+
+.sticky-card p {
+    color: #94a3b8;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.duration-picker {
+    margin-bottom: 2rem;
+}
+
+.duration-picker label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.duration-picker select {
+    width: 100%;
+    max-width: 100%;
+    padding: 1rem;
+    background: rgba(2, 6, 23, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    color: #f8fafc;
+    font-size: 1rem;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.price-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    background: rgba(59, 130, 246, 0.05);
+    border-radius: 1.25rem;
+    border: 1px dashed rgba(59, 130, 246, 0.2);
+    box-sizing: border-box;
+}
+
+.price-display .label {
+    font-weight: 500;
+    color: #94a3b8;
+}
+
+.price-display .value {
+    font-size: clamp(1.35rem, 2vw + 0.5rem, 2rem);
+    font-weight: 800;
+    color: #3b82f6;
+    word-break: normal;
+    overflow-wrap: normal;
+}
+
+.apply-now-large {
+    width: 100%;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    color: white;
+    font-weight: 800;
+    font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem);
+    border: none;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 15px 30px -10px rgba(59, 130, 246, 0.5);
+    box-sizing: border-box;
+}
+
+.apply-now-large:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.7);
+}
+
+.guarantee {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #475569;
+}
+
+.loading-spinner,
+.error-message {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #94a3b8;
+    padding: 2rem;
+    text-align: center;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Large desktops */
+@media (min-width: 1400px) {
+    .detail-container {
+        max-width: 1280px;
+    }
+
+    .detail-content {
+        gap: 4.5rem;
+    }
+}
+
+/* Laptops / smaller desktops */
+@media (max-width: 1200px) {
+    .internship-detail-page {
+        padding: 7.5rem 1.75rem 3.5rem;
+    }
+
+    .detail-content {
+        gap: 3rem;
+    }
+
+    .action-sidebar .sticky-card {
+        padding: 2rem;
+    }
+}
+
+/* Tablets / stacked layout */
+@media (max-width: 1024px) {
+    .internship-detail-page {
+        padding: 7rem 1.5rem 3rem;
+    }
+
+    .detail-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .action-sidebar {
+        display: flex;
+        justify-content: center;
+    }
+
+    .action-sidebar .sticky-card {
+        position: static;
+        max-width: 520px;
+        width: 100%;
+    }
+
+    .full-description {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 3rem;
+        font-size: 1.05rem;
+    }
+
+    .certificate-info {
+        padding: 2rem;
+    }
+}
+
+/* Large phones / small tablets */
+@media (max-width: 768px) {
+    .internship-detail-page {
+        padding: 6.5rem 1.25rem 2.5rem;
+    }
+
+    .back-btn {
+        margin-bottom: 1.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .badges {
+        margin-bottom: 2rem;
+        gap: 0.5rem 0.75rem;
+    }
+
+    .badge {
+        font-size: 0.8rem;
+        padding: 0.35rem 0.85rem;
+    }
+
+    .full-description {
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+    }
+
+    .certificate-info {
+        padding: 1.5rem;
+        border-radius: 1.5rem;
+    }
+
+    .certificate-info li {
+        padding: 0.6rem 0;
+        padding-left: 1.75rem;
+        font-size: 0.95rem;
+    }
+
+    .action-sidebar .sticky-card {
+        padding: 1.75rem;
+        border-radius: 1.5rem;
+    }
+
+    .price-display {
+        padding: 1.15rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .apply-now-large {
+        padding: 1.1rem;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .internship-detail-page {
+        padding: 6rem 1rem 2rem;
+    }
+
+    .back-btn {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .badges {
+        margin-bottom: 1.5rem;
+    }
+
+    .badge {
+        white-space: normal;
+        text-align: center;
+    }
+
+    .full-description {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+    }
+
+    .certificate-info {
+        padding: 1.25rem;
+        border-radius: 1.25rem;
+    }
+
+    .certificate-info h3 {
+        margin-bottom: 1rem;
+    }
+
+    .certificate-info li {
+        padding-left: 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .action-sidebar .sticky-card {
+        padding: 1.35rem;
+        border-radius: 1.25rem;
+    }
+
+    .sticky-card p {
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+    }
+
+    .duration-picker {
+        margin-bottom: 1.5rem;
+    }
+
+    .duration-picker select {
+        padding: 0.85rem;
+        font-size: 0.95rem;
+    }
+
+    .price-display {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .apply-now-large {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .guarantee {
+        margin-top: 1.15rem;
+        font-size: 0.8rem;
+    }
+} */
+
+
+
+.internship-detail-page {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem;
+    background: radial-gradient(circle at top left, #1f2937, #020617);
+    color: #e5e7eb;
+    margin-top: -90px;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.detail-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    color: #94a3b8;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: all 0.3s;
+    font-weight: 500;
+    max-width: 100%;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #f8fafc;
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.detail-content {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 4rem;
+    align-items: start;
+    width: 100%;
+    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.info-section,
+.action-sidebar {
+    min-width: 0;
+    width: 100%;
+}
+
+.info-section h1 {
+    font-size: clamp(1.75rem, 4vw + 0.5rem, 3.5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.05em;
+    line-height: 1.15;
+    max-width: 100%;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+}
+
+.badges {
+    display: flex;
+    gap: 0.75rem 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 0.4rem 1rem;
+    background: rgba(59, 130, 246, 0.1);
+    color: #60a5fa;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    white-space: nowrap;
+}
+
+.full-description {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    align-content: start;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #cbd5e1;
+    margin-bottom: 4rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    padding: 2rem;
+    background: rgba(15, 23, 42, 0.4);
+    width: 95%;
     max-width: 50vw;
     min-width: 0;
     box-sizing: border-box;
