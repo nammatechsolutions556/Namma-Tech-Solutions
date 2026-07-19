@@ -253,7 +253,7 @@ const HomePage = () => {
           <h2>Ready to Transform Your Business?</h2>
           <p>Let’s build something amazing together. Reach out today for a free technical consultation.</p>
           <div className="hero-buttons">
-            <Link to="/projects" className="primary-btn">Request a Quote</Link>
+            <Link to="/contact" className="primary-btn">Request a Quote</Link>
             <a href="mailto:nammatechsolutions@gmail.com" className="secondary-btn">Email Us</a>
           </div>
         </div>
