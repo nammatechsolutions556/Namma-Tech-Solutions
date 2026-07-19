@@ -8,7 +8,7 @@ const Services = () => {
                 <h1 className="services-title">Our Services</h1>
 
                 <p className="services-intro">
-                    At Namma Tech Solutions Pvt Ltd, we provide innovative software
+                    At Namma Tech Solutions, we provide innovative software
                     development services and internship opportunities designed to help
                     businesses grow and students gain real-world technical experience.
                 </p>
