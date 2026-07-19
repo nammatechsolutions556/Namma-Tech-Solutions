@@ -7,7 +7,7 @@ const Footer = () => {
       {/* Bottom Footer */}
       <div className="footer-bottom">
         <p>
-          © {new Date().getFullYear()} Namma Tech Solutions Pvt Ltd. All Rights Reserved.
+          © {new Date().getFullYear()} Namma Tech Solutions. All Rights Reserved.
         </p>
       </div>
     </footer>
