@@ -186,7 +186,7 @@ const sendCertificate = async (req, res) => {
         });
 
         const mailOptions = {
-            from: '"Namma Tech Solutions" <no-reply@nammatechsolutions.com>',
+            from: '"Namma Tech Solutions" <nammatechsolutions@gmail.com>',
             to: cert.email,
             subject: `Your ${cert.cert_type} Certificate is Ready!`,
             text: `Dear ${cert.name},\n\nCongratulations on completing your ${cert.cert_type}! Please find your certificate attached.\n\nBest Regards,\nNamma Tech Solutions`,
