@@ -36,8 +36,8 @@ const HomePage = () => {
             intelligent AI solutions, and empower the next generation through premium internship programs.
           </p>
           <div className="hero-buttons">
-            <Link to="/projects" className="primary-btn pulse-glow">
-              Start Your Project
+            <Link to="/internships" className="primary-btn pulse-glow">
+              Start Your Internship
             </Link>
             <Link to="/services" className="secondary-btn">
               Explore Services
@@ -191,13 +191,13 @@ const HomePage = () => {
       </section>
 
       {/* PORTFOLIO PREVIEW */}
-      <section className="portfolio-preview fade-in-section">
+      {/* <section className="portfolio-preview fade-in-section">
         <h2>Featured Work</h2>
         <p>Discover how we've transformed ideas into impactful digital products.</p>
         <Link to="/portfolio" className="secondary-btn">
           View Full Portfolio
         </Link>
-      </section>
+      </section> */}
 
       {/* TESTIMONIALS
       <section className="testimonials fade-in-section">
@@ -254,7 +254,7 @@ const HomePage = () => {
           <p>Let’s build something amazing together. Reach out today for a free technical consultation.</p>
           <div className="hero-buttons">
             <Link to="/projects" className="primary-btn">Request a Quote</Link>
-            <a href="mailto:support@nammatechsolutions.com" className="secondary-btn">Email Us</a>
+            <a href="mailto:nammatechsolutions@gmail.com" className="secondary-btn">Email Us</a>
           </div>
         </div>
 
