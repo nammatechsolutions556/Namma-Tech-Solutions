@@ -10,7 +10,7 @@ const About = () => {
         <h1 className="about-title">About Namma Tech Solutions</h1>
 
         <p className="about-intro">
-          Namma Tech Solutions Pvt Ltd is a software development company
+          Namma Tech Solutions is a software development company
           dedicated to building innovative digital solutions for businesses,
           startups, and students. We specialize in developing modern web
           applications, mobile applications, AI/ML systems, and enterprise
@@ -73,7 +73,7 @@ const About = () => {
 
             <p className="founder-name">
               <strong>Founder & CEO</strong> <br />
-              Namma Tech Solutions Pvt Ltd
+              Namma Tech Solutions
             </p>
           </div>
         </div>
